@@ -29,7 +29,7 @@ namespace ProjectValkyrie.Managers
         {
             foreach(Entities.Base.GameEntity e in entites.Values)
             {
-                _pm.Update(e.Id, t); // Physics Update
+                if(e.HasPhysics) _pm.Update(e.Id, t); // Physics Update, may generate OnEvent() calls
                 e.Update(t); // Entity Update
             }
         }
@@ -46,6 +46,12 @@ namespace ProjectValkyrie.Managers
 
             entites.Add(id, e);
             _pm.Add(id, p);
+        }
+
+        public void AddEntity(long id, Entities.Base.GameEntity e)
+        {
+            e.Id = id;
+            entites.Add(id, e);
         }
     }
 }

@@ -14,6 +14,8 @@ namespace ProjectValkyrie.Components
         public void Update(GameTime t)
         {
             postion += velocity * t.ElapsedGameTime.Milliseconds;
+            // Resolve collisions or intersections.
+            // Call OnEvent() if necessary
         }
 
         public long Id { get => id; set => id = value; }

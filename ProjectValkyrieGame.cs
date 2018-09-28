@@ -29,7 +29,7 @@ namespace ProjectValkyrie
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            DummyLoadLevel();
             // TODO: use this.Content to load your game content here
         }
 
@@ -62,8 +62,7 @@ namespace ProjectValkyrie
         private void DummyLoadLevel()
         {
             Entities.Ogre ogre = new Entities.Ogre();
-            Components.PhysicsComponent p = new Components.PhysicsComponent();
-            _em.AddEntity(_em.GetNextID(), ogre, p);
+            _em.AddEntity(_em.GetNextID(), ogre);
         }
     }
 }

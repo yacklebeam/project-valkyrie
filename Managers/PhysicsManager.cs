@@ -1,4 +1,5 @@
 ﻿using ProjectValkyrie.Components;
+using ProjectValkyrie.Entities;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -21,6 +22,8 @@ namespace ProjectValkyrie.Managers
         public void Update(long id, GameTime t)
         {
             physics[id].Update(t);
+            // Physics check should also call GameEntity.OnEvent(e) if a physics object causes a trigger
+            // Use GameEntity.TriggerType to determine if/when to trigger during physics update
         }
     }
 }
