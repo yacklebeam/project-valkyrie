@@ -65,6 +65,8 @@
     <Compile Include="Entities\Base\GameEntity.cs" />
     <Compile Include="Entities\Ogre.cs" />
     <Compile Include="Managers\EntityManager.cs" />
+    <Compile Include="Managers\PhysicsManager.cs" />
+    <Compile Include="Managers\RenderManager.cs" />
     <Compile Include="ProjectValkyrieGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

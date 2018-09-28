@@ -7,7 +7,7 @@ namespace ProjectValkyrie.Entities
     {
         public override void OnTrigger(GameEntity ge)
         {
-            
+
         }
 
         public override void OnUpdate(GameTime t)

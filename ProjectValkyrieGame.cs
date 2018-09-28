@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ProjectValkyrie.Managers;
 
 namespace ProjectValkyrie
 {
@@ -8,6 +9,7 @@ namespace ProjectValkyrie
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        EntityManager _em;
 
         public ProjectValkyrieGame()
         {
@@ -19,7 +21,7 @@ namespace ProjectValkyrie
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            _em = new EntityManager();
             base.Initialize();
         }
 
@@ -43,6 +45,7 @@ namespace ProjectValkyrie
                 Exit();
 
             // TODO: Add your update logic here
+            _em.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -54,6 +57,13 @@ namespace ProjectValkyrie
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        private void DummyLoadLevel()
+        {
+            Entities.Ogre ogre = new Entities.Ogre();
+            Components.PhysicsComponent p = new Components.PhysicsComponent();
+            _em.AddEntity(_em.GetNextID(), ogre, p);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ProjectValkyrie.Components
 
         public void Update(GameTime t)
         {
-            
+            postion += velocity * t.ElapsedGameTime.Milliseconds;
         }
 
         public long Id { get => id; set => id = value; }
