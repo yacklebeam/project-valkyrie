@@ -53,9 +53,9 @@ namespace ProjectValkyrie.Entities.Base
             OnUpdate(t);
         }
 
-        public void Render(SpriteBatch sb)
+        public void Render(SpriteBatch sb, Managers.PhysicsManager p)
         {
-            if (texture != null) sb.Draw(texture, physics.Postion, Color.White);
+            if (texture != null) sb.Draw(texture, p.ConvertToScreenCoordinates(physics.Postion), Color.White);
         }
     }
 }

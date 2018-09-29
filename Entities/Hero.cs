@@ -13,7 +13,7 @@ namespace ProjectValkyrie.Entities
             Physics = new Components.PhysicsComponent();
 
             Health = 100;
-            Speed = 0.5f;
+            Speed = 5.0f;
 
             Texture = a.getTexture("hero");
         }
@@ -25,9 +25,6 @@ namespace ProjectValkyrie.Entities
 
         public override void OnUpdate(GameTime t)
         {
-            //Console.WriteLine(String.Format("{0} {1}", GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X, GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y));
-            // Read Controller Input
-
             Vector2 leftStickNormalized = new Vector2(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X, GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y * -1.0f);
             Physics.Velocity = Speed * leftStickNormalized;
         }

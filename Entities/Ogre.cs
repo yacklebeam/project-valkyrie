@@ -13,7 +13,7 @@ namespace ProjectValkyrie.Entities
                 Physics = new Components.PhysicsComponent();
 
                 Health = 100;
-                Speed = 0.5f;
+                Speed = 5.0f; //m/s
 
                 Texture = a.getTexture("hero");
             }

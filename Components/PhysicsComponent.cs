@@ -11,13 +11,11 @@ namespace ProjectValkyrie.Components
         private long id;
 
         public PhysicsComponent()
-        {}
+        { }
 
         public void Update(GameTime t)
         {
-            postion += velocity * t.ElapsedGameTime.Milliseconds;
-            // Resolve collisions or intersections.
-            // Call OnEvent() if necessary
+            postion += velocity * (float)t.ElapsedGameTime.TotalSeconds;
         }
 
         public long Id { get => id; set => id = value; }

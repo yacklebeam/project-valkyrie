@@ -7,23 +7,32 @@ namespace ProjectValkyrie.Managers
 {
     class PhysicsManager
     {
-        private readonly Dictionary<long, PhysicsComponent> physics;
+        private Vector2 maxPixelViewport;
+        private Vector2 maxMeterViewport;
 
-        public PhysicsManager()
+        private Vector2 cameraOffset;
+
+        public PhysicsManager(Vector2 pixels, Vector2 meters)
         {
-            physics = new Dictionary<long, PhysicsComponent>();
+            maxPixelViewport = pixels;
+            maxMeterViewport = meters;
+            cameraOffset = new Vector2();
         }
 
-        public void Add(long id, PhysicsComponent p)
-        {
-            physics.Add(id, p);
-        }
+        public Vector2 MaxPixelViewport { get => maxPixelViewport; set => maxPixelViewport = value; }
+        public Vector2 CameraOffset     { get => cameraOffset;     set => cameraOffset = value; }
+        public Vector2 MaxMeterViewport { get => maxMeterViewport; set => maxMeterViewport = value; }
 
-        public void Update(long id, GameTime t)
+        public Vector2 ConvertToScreenCoordinates(Vector2 v)
         {
-            //physics[id].Update(t);
-            // Physics check should also call GameEntity.OnEvent(e) if a physics object causes a trigger
-            // Use GameEntity.TriggerType to determine if/when to trigger during physics update
+            Vector2 Result = new Vector2();
+
+            float pixelsPerMeter = (maxPixelViewport.X) / (maxMeterViewport.X);
+
+            Result.X = (v.X - cameraOffset.X) * pixelsPerMeter;
+            Result.Y = (v.Y - cameraOffset.Y) * pixelsPerMeter;
+
+            return Result;
         }
     }
 }

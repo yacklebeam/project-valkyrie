@@ -15,12 +15,16 @@ namespace ProjectValkyrie
         public ProjectValkyrieGame()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             Content.RootDirectory = "Content";
         }
 
         protected override void Initialize()
         {
             _em = new EntityManager();
+            _em.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(20.0f, 10.0f));
             _am = new AssetManager();
             base.Initialize();
         }
@@ -56,11 +60,11 @@ namespace ProjectValkyrie
         private void DummyLoadLevel()
         {
             Entities.Hero hero = new Entities.Hero(_am);
-            hero.Physics.Postion = new Vector2(100.0f, 100.0f);
+            hero.Physics.Postion = new Vector2(1.0f, 1.0f);
             long playerId = _em.AddEntity(hero);
 
             Entities.Ogre ogre = new Entities.Ogre(_am);
-            ogre.Physics.Postion = new Vector2(400.0f, 400.0f);
+            ogre.Physics.Postion = new Vector2(4.0f, 4.0f);
             long newId = _em.AddEntity(ogre);
         }
     }
