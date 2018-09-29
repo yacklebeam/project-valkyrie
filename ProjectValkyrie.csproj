@@ -63,7 +63,9 @@
   <ItemGroup>
     <Compile Include="Components\PhysicsComponent.cs" />
     <Compile Include="Entities\Base\GameEntity.cs" />
+    <Compile Include="Entities\Hero.cs" />
     <Compile Include="Entities\Ogre.cs" />
+    <Compile Include="Managers\AssetManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Managers\PhysicsManager.cs" />
     <Compile Include="Managers\RenderManager.cs" />

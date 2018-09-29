@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectValkyrie.Managers
 {
     class EntityManager
     {
         private readonly Dictionary<long, Entities.Base.GameEntity> entites;
-        private readonly PhysicsManager _pm;
         private readonly RenderManager _rm;
         private long currentId;
 
@@ -14,7 +14,6 @@ namespace ProjectValkyrie.Managers
         {
             currentId = 0;
             entites = new Dictionary<long, Entities.Base.GameEntity>();
-            _pm = new PhysicsManager();
             _rm = new RenderManager();
         }
 
@@ -29,29 +28,25 @@ namespace ProjectValkyrie.Managers
         {
             foreach(Entities.Base.GameEntity e in entites.Values)
             {
-                if(e.HasPhysics) _pm.Update(e.Id, t); // Physics Update, may generate OnEvent() calls
                 e.Update(t); // Entity Update
             }
         }
         
-        public void Render()
+        public void Render(SpriteBatch sb)
         {
-            
+            foreach (Entities.Base.GameEntity e in entites.Values)
+            {
+                e.Render(sb); // Entity Update
+            }
         }
 
-        public void AddEntity(long id, Entities.Base.GameEntity e, Components.PhysicsComponent p)
+        public long AddEntity(Entities.Base.GameEntity e)
         {
-            e.Id = id;
-            p.Id = id;
-
-            entites.Add(id, e);
-            _pm.Add(id, p);
-        }
-
-        public void AddEntity(long id, Entities.Base.GameEntity e)
-        {
+            long id = GetNextID();
             e.Id = id;
             entites.Add(id, e);
+
+            return id;
         }
     }
 }

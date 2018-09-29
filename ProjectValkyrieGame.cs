@@ -10,6 +10,7 @@ namespace ProjectValkyrie
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         EntityManager _em;
+        AssetManager _am;
 
         public ProjectValkyrieGame()
         {
@@ -17,52 +18,50 @@ namespace ProjectValkyrie
             Content.RootDirectory = "Content";
         }
 
-        /// Allows the game to perform any initialization it needs to before starting to run.
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             _em = new EntityManager();
+            _am = new AssetManager();
             base.Initialize();
         }
 
-        /// LoadContent will be called once per game and is the place to load all of your content.
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            _am.loadImageAsset("hero", "images/hero", Content);
             DummyLoadLevel();
-            // TODO: use this.Content to load your game content here
         }
 
-        /// UnloadContent will be called once per game and is the place to unload game-specific content.
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            // TODO: Add your update logic here
             _em.Update(gameTime);
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null);
+            _em.Render(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
 
         private void DummyLoadLevel()
         {
-            Entities.Ogre ogre = new Entities.Ogre();
-            _em.AddEntity(_em.GetNextID(), ogre);
+            Entities.Hero hero = new Entities.Hero(_am);
+            hero.Physics.Postion = new Vector2(100.0f, 100.0f);
+            long playerId = _em.AddEntity(hero);
+
+            Entities.Ogre ogre = new Entities.Ogre(_am);
+            ogre.Physics.Postion = new Vector2(400.0f, 400.0f);
+            long newId = _em.AddEntity(ogre);
         }
     }
 }
