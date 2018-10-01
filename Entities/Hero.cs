@@ -27,6 +27,18 @@ namespace ProjectValkyrie.Entities
         {
             Vector2 leftStickNormalized = new Vector2(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X, GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y * -1.0f);
             Physics.Velocity = Speed * leftStickNormalized;
+
+            if(GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed)
+            {
+                MainAttack();
+            }
+        }
+
+        private void MainAttack()
+        {
+            // Register a new entity to represent the attack?
+            // Should we have a weapon component that creates the entities?
+
         }
     }
 }
