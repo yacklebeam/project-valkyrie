@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using ProjectValkyrie.Entities.Base;
 using Microsoft.Xna.Framework.Input;
-using System;
+using ProjectValkyrie.Entities.Base;
 
 namespace ProjectValkyrie.Entities
 {
     class Hero : Base.GameEntity
     {
-        public Hero(Managers.AssetManager a) : base()
+        private ProjectValkyrie.Items.Base.GameItem mainWeapon = null;
+
+        public Hero(Managers.AssetManager a)
         {
             HasRenderable = true;
             Physics = new Components.PhysicsComponent();
@@ -16,6 +17,8 @@ namespace ProjectValkyrie.Entities
             Speed = 5.0f;
 
             Texture = a.getTexture("hero");
+
+            mainWeapon = new Items.SquireSword();
         }
 
         public override void OnEvent(GameEntity ge)
@@ -30,15 +33,8 @@ namespace ProjectValkyrie.Entities
 
             if(GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed)
             {
-                MainAttack();
+                if (mainWeapon != null) mainWeapon.OnUsePrimary();
             }
-        }
-
-        private void MainAttack()
-        {
-            // Register a new entity to represent the attack?
-            // Should we have a weapon component that creates the entities?
-
         }
     }
 }

@@ -14,11 +14,11 @@ namespace ProjectValkyrie.Entities.Base
     abstract class GameEntity
     {
         private long id;
-        private int triggerType;
+        private int triggerType = -1;
         private long targetId = -1;
         private PhysicsComponent physics = null;
         private bool hasRenderable = false;
-        private EntityType type;
+        private EntityType type = EntityType.NONE;
 
         private Texture2D texture = null;
 
@@ -40,11 +40,7 @@ namespace ProjectValkyrie.Entities.Base
         public abstract void OnEvent(GameEntity ge); // Triggers are based on physics collide or intersection events, independent of this entities updates
 
         public GameEntity()
-        {// Sets the Entity Defaults -- subclasses should override these values if needed
-            TriggerType = -1;
-            hasRenderable = false;
-            Type = EntityType.NONE;
-        }
+        {}
 
         public void Update(GameTime t)
         {// For now, all entities update every update call

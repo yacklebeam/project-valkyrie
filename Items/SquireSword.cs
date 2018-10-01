@@ -14,34 +14,38 @@ namespace ProjectValkyrie.Items
         public override void OnUseSecondary(GameEntity e)
         {
         }
-    }
 
-    // The sword primary attack associated with the sword
-    class SquireSwordPrimaryAttack : GameEntity
-    {
-        private readonly int damage = 5;
-
-        public override void OnEvent(GameEntity ge)
+        // The sword primary attack associated with the sword
+        internal class SquireSwordPrimaryAttack : GameEntity
         {
-            ge.Health -= damage;
+            private readonly int damage = 5;
+            public SquireSwordPrimaryAttack()
+            {
+                // Create new physics object for the hitbox
+            }
+
+            public override void OnEvent(GameEntity ge)
+            {
+                ge.Health -= damage;
+            }
+
+            public override void OnUpdate(GameTime t)
+            { }
         }
 
-        public override void OnUpdate(GameTime t)
-        {}
-    }
-
-    // The sword secondary attack associated with the sword
-    class SquireSwordSecondaryAttack : GameEntity
-    {
-        private readonly int damage = 5;
-
-        public override void OnEvent(GameEntity ge)
+        // The sword secondary attack associated with the sword
+        internal class SquireSwordSecondaryAttack : GameEntity
         {
-            ge.Health -= damage;
-        }
+            private readonly int damage = 5;
 
-        public override void OnUpdate(GameTime t)
-        {
+            public override void OnEvent(GameEntity ge)
+            {
+                ge.Health -= damage;
+            }
+
+            public override void OnUpdate(GameTime t)
+            {
+            }
         }
     }
 }

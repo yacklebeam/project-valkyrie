@@ -7,7 +7,7 @@ namespace ProjectValkyrie.Entities
 {
     class Ogre : Base.GameEntity
     {
-        public Ogre(Managers.AssetManager a) : base()
+        public Ogre(Managers.AssetManager a)
         {
                 HasRenderable = true;
                 Physics = new Components.PhysicsComponent();
