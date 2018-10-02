@@ -10,17 +10,10 @@ namespace ProjectValkyrie.Entities
 {
     class SquareZone : Base.GameEntity
     {
-        public SquareZone(Vector2 position) : base()
+        public SquareZone() : base()
         {
-            Components.PhysicsComponent pc = new Components.PhysicsComponent(Id);
-            pc.Type = Components.PhysicsComponent.PhysicsType.INTERSECT;
-            pc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
-            pc.Position = position;
-
             Type = EntityType.ZONE;
-
             Texture = GameSession.Instance.AssetManager.getTexture("hero");
-            PhysicsId = GameSession.Instance.PhysicsManager.Add(pc);
         }
 
         public override void OnEvent(long id)

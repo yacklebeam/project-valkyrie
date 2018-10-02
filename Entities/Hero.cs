@@ -10,13 +10,9 @@ namespace ProjectValkyrie.Entities
     {
         private Items.Base.GameItem primaryWeapon = null;
 
-        public Hero(Vector2 position) : base()
+        public Hero() : base()
         {
             HasRenderable = true;
-            Components.PhysicsComponent pc = new Components.PhysicsComponent(Id);
-            pc.Type = Components.PhysicsComponent.PhysicsType.INTERSECT;
-            pc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
-            pc.Position = position;
             primaryWeapon = new Items.SquireSword();
 
             MaxHealth = 100;
@@ -27,7 +23,6 @@ namespace ProjectValkyrie.Entities
 
             // Texture should be switched to the RenderManager or AssetManager
             Texture = GameSession.Instance.AssetManager.getTexture("hero");
-            PhysicsId = GameSession.Instance.PhysicsManager.Add(pc);
         }
 
         public override void OnEvent(long id)

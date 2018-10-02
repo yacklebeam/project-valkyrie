@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ProjectValkyrie.Components;
+using ProjectValkyrie.Entities;
 using ProjectValkyrie.Managers;
 
 namespace ProjectValkyrie
@@ -24,7 +26,7 @@ namespace ProjectValkyrie
         protected override void Initialize()
         {
             _gameSession.EntityManager = new EntityManager();
-            _gameSession.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(20.0f, 10.0f));
+            _gameSession.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(1280.0f, 720.0f));
             _gameSession.AssetManager = new AssetManager();
             base.Initialize();
         }
@@ -61,10 +63,20 @@ namespace ProjectValkyrie
 
         private void DummyLoadLevel()
         {
-            Entities.Hero hero = new Entities.Hero(new Vector2(100.0f, 100.0f));
+            Hero hero = new Hero();
+            PhysicsComponent pc = new PhysicsComponent(hero.Id);
+            pc.Type = PhysicsComponent.PhysicsType.INTERSECT;
+            pc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
+            pc.Position = new Vector2(100.0f, 100.0f);
+            hero.PhysicsId = _gameSession.PhysicsManager.Add(pc);
             _gameSession.EntityManager.AddEntity(hero);
 
-            Entities.SquareZone szone = new Entities.SquareZone(new Vector2(101.0f, 101.0f));
+            SquareZone szone = new SquareZone();
+            PhysicsComponent spc = new PhysicsComponent(szone.Id);
+            spc.Type = PhysicsComponent.PhysicsType.INTERSECT;
+            spc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
+            spc.Position = new Vector2(101.0f, 101.0f);
+            szone.PhysicsId = GameSession.Instance.PhysicsManager.Add(pc);
             _gameSession.EntityManager.AddEntity(szone);
         }
     }

@@ -23,8 +23,6 @@ namespace ProjectValkyrie.Components
         private Vector2 maxBoundingBox;
         private long entityId;
         private PhysicsType type = PhysicsType.NONE;
-        private bool minBBSet = false;
-        private bool maxBBSet = false;
 
         public PhysicsComponent(long entityId)
         {
