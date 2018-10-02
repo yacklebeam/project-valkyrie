@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProjectValkyrie.Components;
+using ProjectValkyrie.Managers;
 
 namespace ProjectValkyrie.Entities.Base
 {
@@ -16,7 +16,8 @@ namespace ProjectValkyrie.Entities.Base
         private long id;
         private int triggerType = -1;
         private long targetId = -1;
-        private PhysicsComponent physics = null;
+        //private PhysicsComponent physics = null;
+        private long physicsId = -1;
         private bool hasRenderable = false;
         private EntityType type = EntityType.NONE;
 
@@ -31,10 +32,11 @@ namespace ProjectValkyrie.Entities.Base
         public long TargetId { get => targetId; set => targetId = value; }
         public bool HasRenderable { get => hasRenderable; set => hasRenderable = value; }
         internal EntityType Type { get => type; set => type = value; }
-        internal PhysicsComponent Physics { get => physics; set => physics = value; }
+        //internal PhysicsComponent Physics { get => physics; set => physics = value; }
         public int Health { get => health; set => health = value; }
         public float Speed { get => speed; set => speed = value; }
         public Texture2D Texture { get => texture; set => texture = value; }
+        public long PhysicsId { get => physicsId; set => physicsId = value; }
 
         public abstract void OnUpdate(GameTime t); // Called every update cycle for this entity by Update() call
         public abstract void OnEvent(GameEntity ge); // Triggers are based on physics collide or intersection events, independent of this entities updates
@@ -44,14 +46,12 @@ namespace ProjectValkyrie.Entities.Base
 
         public void Update(GameTime t)
         {// For now, all entities update every update call
-            // Also, update PhysicsComponent here
-            if(physics != null) physics.Update(t);
             OnUpdate(t);
         }
 
         public void Render(SpriteBatch sb, Managers.PhysicsManager p)
         {
-            if (texture != null) sb.Draw(texture, p.ConvertToScreenCoordinates(physics.Postion), Color.White);
+            if (texture != null) sb.Draw(texture, p.ConvertToScreenCoordinates(GameSession.Instance.PhysicsManager.Get(physicsId).Postion), Color.White);
         }
     }
 }

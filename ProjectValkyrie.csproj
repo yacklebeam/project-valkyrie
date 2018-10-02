@@ -62,6 +62,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\PhysicsComponent.cs" />
+    <Compile Include="Components\RenderComponent.cs" />
     <Compile Include="Entities\Base\GameEntity.cs" />
     <Compile Include="Entities\Hero.cs" />
     <Compile Include="Entities\Ogre.cs" />
@@ -70,8 +71,10 @@
     <Compile Include="Items\SquireSword.cs" />
     <Compile Include="Managers\AssetManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
+    <Compile Include="Managers\GameSession.cs" />
     <Compile Include="Managers\PhysicsManager.cs" />
     <Compile Include="Managers\RenderManager.cs" />
+    <Compile Include="Math\MathUtils.cs" />
     <Compile Include="ProjectValkyrieGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,9 +93,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Math\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
