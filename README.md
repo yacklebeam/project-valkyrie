@@ -1,2 +1,2 @@
 # project-valkyrie
-Nav and Jacob's Game
+Nav and Jacob and Cooper's Game
