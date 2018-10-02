@@ -65,11 +65,15 @@
     <Compile Include="Components\RenderComponent.cs" />
     <Compile Include="Entities\Base\GameEntity.cs" />
     <Compile Include="Entities\Hero.cs" />
+    <Compile Include="Items\Base\GameItem.cs" />
+    <Compile Include="Items\HealthPotion.cs" />
+    <Compile Include="Items\SquireSword.cs" />
     <Compile Include="Managers\AssetManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Managers\GameSession.cs" />
     <Compile Include="Managers\PhysicsManager.cs" />
     <Compile Include="Managers\RenderManager.cs" />
+    <Compile Include="Math\Hitbox.cs" />
     <Compile Include="Math\MathUtils.cs" />
     <Compile Include="ProjectValkyrieGame.cs" />
     <Compile Include="Program.cs" />
