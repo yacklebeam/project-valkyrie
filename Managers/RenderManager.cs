@@ -11,7 +11,7 @@ namespace ProjectValkyrie.Managers
 
         public RenderManager()
         {
-
+            renders = new Dictionary<long, RenderComponent>();
         }
 
         public void Render(SpriteBatch s)
