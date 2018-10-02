@@ -6,6 +6,11 @@ namespace ProjectValkyrie.Components
 {
     class PhysicsComponent
     {
+        enum PhysicsType {
+            
+        }
+
+
         private Vector2 postion;
         private Vector2 velocity;
         private List<Vector2> hitbox;
@@ -42,8 +47,8 @@ namespace ProjectValkyrie.Components
                     minBoundingBox = new Vector2(int.MaxValue, int.MaxValue);
                     foreach(Vector2 v in hitbox)
                     {
-                        minBoundingBox.X = Math.Min(v.X, minBoundingBox.X);
-                        minBoundingBox.Y = Math.Min(v.Y, minBoundingBox.Y);
+                        minBoundingBox.X = System.Math.Min(v.X, minBoundingBox.X);
+                        minBoundingBox.Y = System.Math.Min(v.Y, minBoundingBox.Y);
                     }
                     minBBSet = true;
                     return minBoundingBox;
@@ -64,8 +69,8 @@ namespace ProjectValkyrie.Components
                     maxBoundingBox = new Vector2(int.MinValue, int.MinValue);
                     foreach (Vector2 v in hitbox)
                     {
-                        maxBoundingBox.X = Math.Max(v.X, maxBoundingBox.X);
-                        maxBoundingBox.Y = Math.Max(v.Y, maxBoundingBox.Y);
+                        maxBoundingBox.X = System.Math.Max(v.X, maxBoundingBox.X);
+                        maxBoundingBox.Y = System.Math.Max(v.Y, maxBoundingBox.Y);
                     }
                     maxBBSet = true;
                     return maxBoundingBox;

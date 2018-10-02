@@ -7,17 +7,12 @@ namespace ProjectValkyrie.Managers
     class EntityManager
     {
         private readonly Dictionary<long, Entities.Base.GameEntity> entites;
-        private readonly RenderManager _rm;
-        private PhysicsManager physicsManager;
         private long currentId;
-
-        internal PhysicsManager PhysicsManager { get => physicsManager; set => physicsManager = value; }
 
         public EntityManager()
         {
             currentId = 0;
             entites = new Dictionary<long, Entities.Base.GameEntity>();
-            _rm = new RenderManager();
         }
 
         public long GetNextID()
@@ -39,7 +34,7 @@ namespace ProjectValkyrie.Managers
         {
             foreach (Entities.Base.GameEntity e in entites.Values)
             {
-                e.Render(sb, physicsManager); // Entity Render
+                //e.Render(sb, physicsManager); // Entity Render
             }
         }
 

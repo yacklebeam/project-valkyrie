@@ -8,18 +8,40 @@ namespace ProjectValkyrie.Managers
 {
     class PhysicsManager
     {
+        private long currentId = -1;
         private Vector2 maxPixelViewport;
         private Vector2 maxMeterViewport;
 
         private Vector2 cameraOffset;
 
-        
+        private Dictionary<long, PhysicsComponent> components;
 
         public PhysicsManager(Vector2 pixels, Vector2 meters)
         {
             maxPixelViewport = pixels;
             maxMeterViewport = meters;
             cameraOffset = new Vector2();
+        }
+
+        public PhysicsComponent Get(long id)
+        {
+            return components[id];
+        }
+
+        public long Add(PhysicsComponent p)
+        {
+            currentId++;
+            long id = currentId;
+            components.Add(id, p);
+            return id;
+        }
+
+        public void Update(GameTime t)
+        {
+            foreach(PhysicsComponent p in components.Values)
+            {
+                p.Update(t); // This will generate events from the physics objects if they trigger
+            }
         }
 
         public Vector2 MaxPixelViewport { get => maxPixelViewport; set => maxPixelViewport = value; }

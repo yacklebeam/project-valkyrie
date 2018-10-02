@@ -9,8 +9,8 @@ namespace ProjectValkyrie
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        EntityManager _em;
-        AssetManager _am;
+
+        GameSession _gameSession = GameSession.Instance;
 
         public ProjectValkyrieGame()
         {
@@ -23,16 +23,16 @@ namespace ProjectValkyrie
 
         protected override void Initialize()
         {
-            _em = new EntityManager();
-            _em.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(20.0f, 10.0f));
-            _am = new AssetManager();
+            _gameSession.EntityManager = new EntityManager();
+            _gameSession.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(20.0f, 10.0f));
+            _gameSession.AssetManager = new AssetManager();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _am.loadImageAsset("hero", "images/hero", Content);
+            _gameSession.AssetManager.loadImageAsset("hero", "images/hero", Content);
             DummyLoadLevel();
         }
 
@@ -44,7 +44,8 @@ namespace ProjectValkyrie
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            _em.Update(gameTime);
+            _gameSession.PhysicsManager.Update(gameTime); // Updates physical position of objects in game world
+            _gameSession.EntityManager.Update(gameTime); // Updates game states based on changes to physical world
             base.Update(gameTime);
         }
 
@@ -52,20 +53,16 @@ namespace ProjectValkyrie
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null);
-            _em.Render(spriteBatch);
+            //_gameSession.EntityManager.Render(spriteBatch);
+            _gameSession.RenderManager.Render(spriteBatch); // Renders textures based on physical location and state value
             spriteBatch.End();
             base.Draw(gameTime);
         }
 
         private void DummyLoadLevel()
         {
-            Entities.Hero hero = new Entities.Hero(_am);
-            hero.Physics.Postion = new Vector2(1.0f, 1.0f);
-            long playerId = _em.AddEntity(hero);
-
-            Entities.Ogre ogre = new Entities.Ogre(_am);
-            ogre.Physics.Postion = new Vector2(4.0f, 4.0f);
-            long newId = _em.AddEntity(ogre);
+            Entities.Hero hero = new Entities.Hero();
+            long playerId = _gameSession.EntityManager.AddEntity(hero);
         }
     }
 }
