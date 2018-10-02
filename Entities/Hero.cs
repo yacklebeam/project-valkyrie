@@ -8,11 +8,16 @@ namespace ProjectValkyrie.Entities
 {
     class Hero : Base.GameEntity
     {
+        private Items.Base.GameItem primaryWeapon = null;
+
         public Hero() : base()
         {
             HasRenderable = true;
-            Components.PhysicsComponent pc = new Components.PhysicsComponent();
+            Components.PhysicsComponent pc = new Components.PhysicsComponent(Id);
 
+            primaryWeapon = new Items.SquireSword();
+
+            MaxHealth = 100;
             Health = 100;
             Speed = 5.0f;
 
@@ -21,7 +26,7 @@ namespace ProjectValkyrie.Entities
             PhysicsId = GameSession.Instance.PhysicsManager.Add(pc);
         }
 
-        public override void OnEvent(GameEntity ge)
+        public override void OnEvent(long id)
         {
             
         }
@@ -30,6 +35,16 @@ namespace ProjectValkyrie.Entities
         {
             Vector2 leftStickNormalized = new Vector2(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X, GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y * -1.0f);
             GameSession.Instance.PhysicsManager.Get(PhysicsId).Velocity = Speed * leftStickNormalized;
+
+            if(GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
+            {
+                PrimaryAttack();
+            }
+        }
+
+        private void PrimaryAttack()
+        {
+            if (primaryWeapon != null) primaryWeapon.OnUsePrimary(this);
         }
     }
 }

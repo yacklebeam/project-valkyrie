@@ -1,18 +1,24 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ProjectValkyrie.Entities.Base;
 
 namespace ProjectValkyrie.Managers
 {
     class EntityManager
     {
-        private readonly Dictionary<long, Entities.Base.GameEntity> entites;
+        private readonly Dictionary<long, GameEntity> entites;
         private long currentId;
 
         public EntityManager()
         {
             currentId = 0;
-            entites = new Dictionary<long, Entities.Base.GameEntity>();
+            entites = new Dictionary<long, GameEntity>();
+        }
+
+        public GameEntity Get(long id)
+        {
+            return entites[id];
         }
 
         public long GetNextID()
@@ -32,13 +38,13 @@ namespace ProjectValkyrie.Managers
         
         public void Render(SpriteBatch sb)
         {
-            foreach (Entities.Base.GameEntity e in entites.Values)
+            foreach (GameEntity e in entites.Values)
             {
                 //e.Render(sb, physicsManager); // Entity Render
             }
         }
 
-        public long AddEntity(Entities.Base.GameEntity e)
+        public long AddEntity(GameEntity e)
         {
             long id = GetNextID();
             e.Id = id;

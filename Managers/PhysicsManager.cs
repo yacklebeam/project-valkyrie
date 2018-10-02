@@ -45,6 +45,12 @@ namespace ProjectValkyrie.Managers
             }
         }
 
+        public List<long> GetIntersections()
+        {
+            List<long> pcs = new List<long>();
+            return pcs;
+        }
+
         public Vector2 MaxPixelViewport { get => maxPixelViewport; set => maxPixelViewport = value; }
         public Vector2 CameraOffset     { get => cameraOffset;     set => cameraOffset = value; }
         public Vector2 MaxMeterViewport { get => maxMeterViewport; set => maxMeterViewport = value; }

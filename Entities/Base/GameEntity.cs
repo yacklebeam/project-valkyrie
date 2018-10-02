@@ -27,19 +27,21 @@ namespace ProjectValkyrie.Entities.Base
         private int health;
         private float speed;
 
+        private int maxHealth;
+        
         public long Id { get => id; set => id = value; }
         public int TriggerType { get => triggerType; set => triggerType = value; }
         public long TargetId { get => targetId; set => targetId = value; }
         public bool HasRenderable { get => hasRenderable; set => hasRenderable = value; }
-        internal EntityType Type { get => type; set => type = value; }
-        //internal PhysicsComponent Physics { get => physics; set => physics = value; }
+        public EntityType Type { get => type; set => type = value; }
         public int Health { get => health; set => health = value; }
         public float Speed { get => speed; set => speed = value; }
         public Texture2D Texture { get => texture; set => texture = value; }
         public long PhysicsId { get => physicsId; set => physicsId = value; }
+        public int MaxHealth { get => maxHealth; set => maxHealth = value; }
 
         public abstract void OnUpdate(GameTime t); // Called every update cycle for this entity by Update() call
-        public abstract void OnEvent(GameEntity ge); // Triggers are based on physics collide or intersection events, independent of this entities updates
+        public abstract void OnEvent(long id); // Triggers are based on physics collide or intersection events, independent of this entities updates
 
         public GameEntity()
         {}
@@ -52,6 +54,18 @@ namespace ProjectValkyrie.Entities.Base
         public void Render(SpriteBatch sb, Managers.PhysicsManager p)
         {
             if (texture != null) sb.Draw(texture, p.ConvertToScreenCoordinates(GameSession.Instance.PhysicsManager.Get(physicsId).Postion), Color.White);
+        }
+
+        public void AddHealth(int delta)
+        {
+            health += delta;
+            if (health > maxHealth) health = maxHealth;
+        }
+
+        public void SubtractHealth(int delta)
+        {
+            health -= delta;
+            if (health < 0) health = 0;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace ProjectValkyrie.Math
 {
@@ -18,6 +19,31 @@ namespace ProjectValkyrie.Math
             r.Y = (a.Y + b.Y) / 2.0f;
 
             return r;
+        }
+
+        public static Hitbox GetRectangleHitbox(Vector2 direction, float length, float width)
+        {
+            float w = width / 2.0f;
+            float l = length / 2.0f;
+
+            direction.Normalize();
+
+            Hitbox h = new Hitbox();
+            List<Vector2> hitbox = new List<Vector2>();
+
+            float xMin = (direction * -l).X;
+            float yMin = (direction * -w).Y;
+            float xMax = (direction * l).X;
+            float yMax = (direction * w).Y;
+
+            hitbox.Add(new Vector2(xMin, yMin));
+            hitbox.Add(new Vector2(xMax, yMin));
+            hitbox.Add(new Vector2(xMax, yMax));
+            hitbox.Add(new Vector2(xMin, yMax));
+
+            h.PointOffsets = hitbox;
+
+            return h;
         }
     }
 }
