@@ -90,7 +90,6 @@ namespace ProjectValkyrie.Components
                     maxBoundingBox.X = System.Math.Max(position.X + v.X, maxBoundingBox.X);
                     maxBoundingBox.Y = System.Math.Max(position.Y + v.Y, maxBoundingBox.Y);
                 }
-                maxBBSet = true;
                 return maxBoundingBox;
             }
         }

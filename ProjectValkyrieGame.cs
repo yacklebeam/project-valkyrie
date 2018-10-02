@@ -26,7 +26,7 @@ namespace ProjectValkyrie
         protected override void Initialize()
         {
             _gameSession.EntityManager = new EntityManager();
-            _gameSession.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(1280.0f, 720.0f));
+            _gameSession.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(640.0f, 360.0f));
             _gameSession.AssetManager = new AssetManager();
             base.Initialize();
         }
@@ -75,8 +75,8 @@ namespace ProjectValkyrie
             PhysicsComponent spc = new PhysicsComponent(szone.Id);
             spc.Type = PhysicsComponent.PhysicsType.INTERSECT;
             spc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
-            spc.Position = new Vector2(101.0f, 101.0f);
-            szone.PhysicsId = GameSession.Instance.PhysicsManager.Add(pc);
+            spc.Position = new Vector2(110.0f, 110.0f);
+            szone.PhysicsId = _gameSession.PhysicsManager.Add(spc);
             _gameSession.EntityManager.AddEntity(szone);
         }
     }
