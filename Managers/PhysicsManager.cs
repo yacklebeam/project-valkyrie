@@ -21,6 +21,7 @@ namespace ProjectValkyrie.Managers
             maxPixelViewport = pixels;
             maxMeterViewport = meters;
             cameraOffset = new Vector2();
+            components = new Dictionary<long, PhysicsComponent>();
         }
 
         public PhysicsComponent Get(long id)
