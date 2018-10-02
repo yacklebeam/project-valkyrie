@@ -33,6 +33,7 @@ namespace ProjectValkyrie.Managers
         {
             currentId++;
             long id = currentId;
+            p.Id = id;
             components.Add(id, p);
             return id;
         }
@@ -45,9 +46,22 @@ namespace ProjectValkyrie.Managers
             }
         }
 
-        public List<long> GetIntersections()
+        public List<long> GetIntersections(long id)
         {
             List<long> pcs = new List<long>();
+
+            PhysicsComponent pc = components[id];
+            foreach (PhysicsComponent other in components.Values)
+            {
+                if(other.Id != id)
+                {
+                    if(MathUtils.Intersect(pc.MinBoundingBox, pc.MaxBoundingBox, other.MinBoundingBox, other.MaxBoundingBox))
+                    {
+                        pcs.Add(other.Id);
+                    }
+                }
+            }
+
             return pcs;
         }
 

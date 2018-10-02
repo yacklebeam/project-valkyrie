@@ -40,17 +40,13 @@ namespace ProjectValkyrie.Managers
         {
             foreach (GameEntity e in entites.Values)
             {
-                //e.Render(sb, physicsManager); // Entity Render
+                e.Render(sb); // Entity Render
             }
         }
 
-        public long AddEntity(GameEntity e)
+        public void AddEntity(GameEntity e)
         {
-            long id = GetNextID();
-            e.Id = id;
-            entites.Add(id, e);
-
-            return id;
+            entites.Add(e.Id, e);
         }
     }
 }

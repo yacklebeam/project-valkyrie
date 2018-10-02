@@ -22,6 +22,8 @@ namespace ProjectValkyrie.Items
             public SquireSwordPrimaryAttack(Vector2 direction)
             {
                 // Create new physics object for the hitbox
+                Type = EntityType.ZONE;
+
                 Components.PhysicsComponent pc = new Components.PhysicsComponent(Id);
                 pc.Direction = direction;
                 pc.Hitbox = Math.MathUtils.GetRectangleHitbox(pc.Direction, 10.0f, 10.0f);

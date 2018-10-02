@@ -8,19 +8,21 @@ namespace ProjectValkyrie.Components
 {
     class PhysicsComponent
     {
-        enum PhysicsType {
-            
+        public enum PhysicsType {
+            NONE,
+            COLLIDE,
+            INTERSECT
         }
 
         private Vector2 direction;
-        private Vector2 postion;
+        private Vector2 position;
         private Vector2 velocity;
         private Hitbox hitbox; // A list of offsets from position
         private long id;
         private Vector2 minBoundingBox;
         private Vector2 maxBoundingBox;
         private long entityId;
-
+        private PhysicsType type = PhysicsType.NONE;
         private bool minBBSet = false;
         private bool maxBBSet = false;
 
@@ -31,8 +33,26 @@ namespace ProjectValkyrie.Components
 
         public void Update(GameTime t)
         {
-            postion += velocity * (float)t.ElapsedGameTime.TotalSeconds;
+            Vector2 originalPos = position;
+            position += velocity * (float)t.ElapsedGameTime.TotalSeconds;
             // If necessary, call TriggerEvent();
+            List<long> pcs = GameSession.Instance.PhysicsManager.GetIntersections(Id);
+
+            foreach(long otherId in pcs)
+            {
+                PhysicsComponent p = GameSession.Instance.PhysicsManager.Get(otherId);
+                if(this.Type == PhysicsType.COLLIDE && p.Type == PhysicsType.COLLIDE)
+                {// We need to adjust our movement
+                    position = originalPos; // For now, just prevent the movement.  Eventually, calculate the pen distance
+
+                    // Also, trigger our event
+                    TriggerEvent(otherId);
+                }
+                else if(this.Type == PhysicsType.INTERSECT)
+                {// We intersected the object. trigger our event
+                    TriggerEvent(otherId);
+                }
+            }
         }
 
         private void TriggerEvent(long id)
@@ -41,30 +61,24 @@ namespace ProjectValkyrie.Components
         }
 
         public long Id { get => id; set => id = value; }
-        public Vector2 Postion { get => postion; set => postion = value; }
+        public Vector2 Position { get => position; set => position = value; }
         public Vector2 Velocity { get => velocity; set => velocity = value; }
         public Vector2 Direction { get => direction; set => direction = value; }
         public Hitbox Hitbox { get => hitbox; set => hitbox = value; }
+        public PhysicsType Type { get => type; set => type = value; }
+
 
         public Vector2 MinBoundingBox
         {
             get
             {
-                if(minBBSet)
+                minBoundingBox = new Vector2(int.MaxValue, int.MaxValue);
+                foreach(Vector2 v in hitbox.PointOffsets)
                 {
-                    return minBoundingBox;
+                    minBoundingBox.X = System.Math.Min(position.X + v.X, minBoundingBox.X);
+                    minBoundingBox.Y = System.Math.Min(position.Y + v.Y, minBoundingBox.Y);
                 }
-                else
-                {
-                    minBoundingBox = new Vector2(int.MaxValue, int.MaxValue);
-                    foreach(Vector2 v in hitbox.PointOffsets)
-                    {
-                        minBoundingBox.X = System.Math.Min(v.X, minBoundingBox.X);
-                        minBoundingBox.Y = System.Math.Min(v.Y, minBoundingBox.Y);
-                    }
-                    minBBSet = true;
-                    return minBoundingBox;
-                }
+                return minBoundingBox;
             }
         }
 
@@ -72,21 +86,14 @@ namespace ProjectValkyrie.Components
         {
             get
             {
-                if (maxBBSet)
+                maxBoundingBox = new Vector2(int.MinValue, int.MinValue);
+                foreach (Vector2 v in hitbox.PointOffsets)
                 {
-                    return maxBoundingBox;
+                    maxBoundingBox.X = System.Math.Max(position.X + v.X, maxBoundingBox.X);
+                    maxBoundingBox.Y = System.Math.Max(position.Y + v.Y, maxBoundingBox.Y);
                 }
-                else
-                {
-                    maxBoundingBox = new Vector2(int.MinValue, int.MinValue);
-                    foreach (Vector2 v in hitbox.PointOffsets)
-                    {
-                        maxBoundingBox.X = System.Math.Max(v.X, maxBoundingBox.X);
-                        maxBoundingBox.Y = System.Math.Max(v.Y, maxBoundingBox.Y);
-                    }
-                    maxBBSet = true;
-                    return maxBoundingBox;
-                }
+                maxBBSet = true;
+                return maxBoundingBox;
             }
         }
     }

@@ -31,10 +31,10 @@ namespace ProjectValkyrie.Math
             Hitbox h = new Hitbox();
             List<Vector2> hitbox = new List<Vector2>();
 
-            float xMin = (direction * -l).X;
-            float yMin = (direction * -w).Y;
-            float xMax = (direction * l).X;
-            float yMax = (direction * w).Y;
+            float xMin = -l;
+            float yMin = -w;
+            float xMax = l;
+            float yMax = w;
 
             hitbox.Add(new Vector2(xMin, yMin));
             hitbox.Add(new Vector2(xMax, yMin));

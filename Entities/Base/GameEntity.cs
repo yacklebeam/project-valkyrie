@@ -4,15 +4,17 @@ using ProjectValkyrie.Managers;
 
 namespace ProjectValkyrie.Entities.Base
 {
-    enum EntityType {
-        NONE,
-        PLAYER,
-        ENEMY,
-        PICKUP
-    }
-
     abstract class GameEntity
     {
+        public enum EntityType
+        {
+            NONE,
+            PLAYER,
+            ENEMY,
+            PICKUP,
+            ZONE
+        }
+
         private long id;
         private int triggerType = -1;
         private long targetId = -1;
@@ -44,16 +46,18 @@ namespace ProjectValkyrie.Entities.Base
         public abstract void OnEvent(long id); // Triggers are based on physics collide or intersection events, independent of this entities updates
 
         public GameEntity()
-        {}
+        {
+            Id = GameSession.Instance.EntityManager.GetNextID();
+        }
 
         public void Update(GameTime t)
         {// For now, all entities update every update call
             OnUpdate(t);
         }
 
-        public void Render(SpriteBatch sb, Managers.PhysicsManager p)
+        public void Render(SpriteBatch sb)
         {
-            if (texture != null) sb.Draw(texture, p.ConvertToScreenCoordinates(GameSession.Instance.PhysicsManager.Get(physicsId).Postion), Color.White);
+            if (texture != null) sb.Draw(texture, GameSession.Instance.PhysicsManager.ConvertToScreenCoordinates(GameSession.Instance.PhysicsManager.Get(physicsId).Position), Color.White);
         }
 
         public void AddHealth(int delta)

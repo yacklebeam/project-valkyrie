@@ -65,6 +65,7 @@
     <Compile Include="Components\RenderComponent.cs" />
     <Compile Include="Entities\Base\GameEntity.cs" />
     <Compile Include="Entities\Hero.cs" />
+    <Compile Include="Entities\SquareZone.cs" />
     <Compile Include="Items\Base\GameItem.cs" />
     <Compile Include="Items\HealthPotion.cs" />
     <Compile Include="Items\SquireSword.cs" />

@@ -16,8 +16,8 @@ namespace ProjectValkyrie
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
         }
 
@@ -53,16 +53,19 @@ namespace ProjectValkyrie
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null);
-            //_gameSession.EntityManager.Render(spriteBatch);
-            _gameSession.RenderManager.Render(spriteBatch); // Renders textures based on physical location and state value
+            _gameSession.EntityManager.Render(spriteBatch);
+            //_gameSession.RenderManager.Render(spriteBatch); // Renders textures based on physical location and state value
             spriteBatch.End();
             base.Draw(gameTime);
         }
 
         private void DummyLoadLevel()
         {
-            Entities.Hero hero = new Entities.Hero();
-            long playerId = _gameSession.EntityManager.AddEntity(hero);
+            Entities.Hero hero = new Entities.Hero(new Vector2(100.0f, 100.0f));
+            _gameSession.EntityManager.AddEntity(hero);
+
+            Entities.SquareZone szone = new Entities.SquareZone(new Vector2(101.0f, 101.0f));
+            _gameSession.EntityManager.AddEntity(szone);
         }
     }
 }
