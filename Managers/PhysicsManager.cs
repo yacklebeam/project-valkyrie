@@ -3,6 +3,7 @@ using ProjectValkyrie.Entities;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using ProjectValkyrie.Math;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectValkyrie.Managers
 {
@@ -43,6 +44,14 @@ namespace ProjectValkyrie.Managers
             foreach(PhysicsComponent p in components.Values)
             {
                 p.Update(t); // This will generate events from the physics objects if they trigger
+            }
+        }
+
+        public void Render(SpriteBatch sb)
+        {
+            foreach(PhysicsComponent p in components.Values)
+            {
+                p.Render(sb);
             }
         }
 

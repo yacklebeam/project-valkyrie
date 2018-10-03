@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ProjectValkyrie.Entities.Base;
 using ProjectValkyrie.Managers;
 using ProjectValkyrie.Math;
@@ -17,7 +18,7 @@ namespace ProjectValkyrie.Components
         private Vector2 direction;
         private Vector2 position;
         private Vector2 velocity;
-        private Hitbox hitbox; // A list of offsets from position
+        private Hitbox hitbox = null; // A list of offsets from position
         private long id;
         private Vector2 minBoundingBox;
         private Vector2 maxBoundingBox;
@@ -91,6 +92,19 @@ namespace ProjectValkyrie.Components
                     maxBoundingBox.Y = System.Math.Max(position.Y + v.Y, maxBoundingBox.Y);
                 }
                 return maxBoundingBox;
+            }
+        }
+
+        public void Render(SpriteBatch sb)
+        {
+            if(hitbox != null)
+            {
+                Vector2 minPixels = GameSession.Instance.PhysicsManager.ConvertToScreenCoordinates(MinBoundingBox);
+                Vector2 maxPixels = GameSession.Instance.PhysicsManager.ConvertToScreenCoordinates(MaxBoundingBox);
+
+                Rectangle r = new Rectangle((int)minPixels.X, (int)minPixels.Y, (int)(maxPixels.X - minPixels.X), (int)(maxPixels.Y - minPixels.Y));
+
+                sb.Draw(GameSession.Instance.AssetManager.getTexture("hitbox"), r, Color.White);
             }
         }
     }

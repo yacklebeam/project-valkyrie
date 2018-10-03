@@ -35,7 +35,8 @@ namespace ProjectValkyrie
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _gameSession.AssetManager.loadImageAsset("hero", "images/hero", Content);
+            _gameSession.AssetManager.loadImageAsset("hero", "images/Hero", Content);
+            _gameSession.AssetManager.loadImageAsset("hitbox", "images/Hitbox", Content);
             _gameSession.AssetManager.loadFontAsset("debug-font", "fonts/DebugFont", Content);
 
             DummyLoadLevel();
@@ -59,6 +60,7 @@ namespace ProjectValkyrie
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null);
+            _gameSession.PhysicsManager.Render(spriteBatch);
             _gameSession.EntityManager.Render(spriteBatch);
             _gameSession.DebugLog.Render(spriteBatch);
             //_gameSession.RenderManager.Render(spriteBatch); // Renders textures based on physical location and state value

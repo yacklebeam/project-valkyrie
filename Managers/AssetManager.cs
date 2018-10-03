@@ -11,9 +11,9 @@ namespace ProjectValkyrie.Managers
 {
     class AssetManager
     {
-        Dictionary<string, Texture2D> textures;
-        Dictionary<string, SpriteFont> fonts;
-        Dictionary<string, SoundEffect> sounds;
+        private Dictionary<string, Texture2D> textures;
+        private Dictionary<string, SpriteFont> fonts;
+        private Dictionary<string, SoundEffect> sounds;
 
         public AssetManager()
         {
