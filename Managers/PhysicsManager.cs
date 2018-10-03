@@ -84,8 +84,8 @@ namespace ProjectValkyrie.Managers
 
             float pixelsPerMeter = (maxPixelViewport.X) / (maxMeterViewport.X);
 
-            Result.X = (v.X - cameraOffset.X) * pixelsPerMeter;
-            Result.Y = (v.Y - cameraOffset.Y) * pixelsPerMeter;
+            Result.X = (float)System.Math.Floor((v.X - cameraOffset.X) * pixelsPerMeter);
+            Result.Y = (float)System.Math.Floor((v.Y - cameraOffset.Y) * pixelsPerMeter);
 
             return Result;
         }

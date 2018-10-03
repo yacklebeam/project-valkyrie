@@ -11,6 +11,7 @@ namespace ProjectValkyrie.Components
         private string textureName;
         private long physicsId;
         private Vector2 offset;
+        private long id;
 
         public RenderComponent(long id)
         {
@@ -20,10 +21,11 @@ namespace ProjectValkyrie.Components
 
         public string TextureName { get => textureName; set => textureName = value; }
         public Vector2 Offset { get => offset; set => offset = value; }
+        public long Id { get => id; set => id = value; }
 
         public void Render(SpriteBatch sb)
         {
-            if (textureName != "") sb.Draw(GameSession.Instance.AssetManager.getTexture(textureName), GameSession.Instance.PhysicsManager.ConvertToScreenCoordinates(GameSession.Instance.PhysicsManager.Get(physicsId).Position) - Offset, Color.White);
+            if (textureName != "") sb.Draw(GameSession.Instance.AssetManager.getTexture(textureName), GameSession.Instance.PhysicsManager.ConvertToScreenCoordinates(GameSession.Instance.PhysicsManager.Get(physicsId).Position) + Offset, Color.White);
         }
     }
 }

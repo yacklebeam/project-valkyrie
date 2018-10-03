@@ -20,6 +20,7 @@ namespace ProjectValkyrie.Entities.Base
         private long targetId = -1;
         //private PhysicsComponent physics = null;
         private long physicsId = -1;
+        private long renderId = -1;
         private bool hasRenderable = false;
         private EntityType type = EntityType.NONE;
 
@@ -41,6 +42,7 @@ namespace ProjectValkyrie.Entities.Base
         public Texture2D Texture { get => texture; set => texture = value; }
         public long PhysicsId { get => physicsId; set => physicsId = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+        public long RenderId { get => renderId; set => renderId = value; }
 
         public abstract void OnUpdate(GameTime t); // Called every update cycle for this entity by Update() call
         public abstract void OnEvent(long id); // Triggers are based on physics collide or intersection events, independent of this entities updates
