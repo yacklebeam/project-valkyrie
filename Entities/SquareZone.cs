@@ -13,7 +13,6 @@ namespace ProjectValkyrie.Entities
         public SquareZone() : base()
         {
             Type = EntityType.ZONE;
-            Texture = GameSession.Instance.AssetManager.getTexture("hero");
         }
 
         public override void OnEvent(long id)

@@ -70,6 +70,7 @@ namespace ProjectValkyrie
 
         private void DummyLoadLevel()
         {
+            // Load the Hero
             Hero hero = new Hero();
             PhysicsComponent pc = new PhysicsComponent(hero.Id);
             pc.Type = PhysicsComponent.PhysicsType.INTERSECT;
@@ -82,6 +83,7 @@ namespace ProjectValkyrie
             hero.RenderId = _gameSession.RenderManager.Add(rc);
             _gameSession.EntityManager.AddEntity(hero);
 
+            // Load a Square Zone
             SquareZone szone = new SquareZone();
             PhysicsComponent spc = new PhysicsComponent(szone.Id);
             spc.Type = PhysicsComponent.PhysicsType.INTERSECT;

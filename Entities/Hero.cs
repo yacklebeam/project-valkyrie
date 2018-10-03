@@ -13,7 +13,6 @@ namespace ProjectValkyrie.Entities
 
         public Hero() : base()
         {
-            HasRenderable = true;
             primaryWeapon = new Items.SquireSword();
 
             MaxHealth = 100;
@@ -21,9 +20,6 @@ namespace ProjectValkyrie.Entities
             Speed = 10.0f;
 
             Type = EntityType.PLAYER;
-
-            // Texture should be switched to the RenderManager or AssetManager
-            Texture = GameSession.Instance.AssetManager.getTexture("hero");
         }
 
         public override void OnEvent(long id)

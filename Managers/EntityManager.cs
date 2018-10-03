@@ -36,14 +36,6 @@ namespace ProjectValkyrie.Managers
             }
         }
         
-        public void Render(SpriteBatch sb)
-        {
-            foreach (GameEntity e in entites.Values)
-            {
-                e.Render(sb); // Entity Render
-            }
-        }
-
         public void AddEntity(GameEntity e)
         {
             entites.Add(e.Id, e);
