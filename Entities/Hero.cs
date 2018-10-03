@@ -9,6 +9,7 @@ namespace ProjectValkyrie.Entities
     class Hero : Base.GameEntity
     {
         private Items.Base.GameItem primaryWeapon = null;
+        private int counter = 0;
 
         public Hero() : base()
         {
@@ -17,7 +18,7 @@ namespace ProjectValkyrie.Entities
 
             MaxHealth = 100;
             Health = 100;
-            Speed = 5.0f;
+            Speed = 10.0f;
 
             Type = EntityType.PLAYER;
 
@@ -27,7 +28,8 @@ namespace ProjectValkyrie.Entities
 
         public override void OnEvent(long id)
         {
-            Console.WriteLine("Hero OnEvent() triggered");
+            GameSession.Instance.DebugLog.AddMessage("Hero OnEvent() triggered " + counter.ToString());
+            counter++;
         }
 
         public override void OnUpdate(GameTime t)

@@ -26,8 +26,9 @@ namespace ProjectValkyrie
         protected override void Initialize()
         {
             _gameSession.EntityManager = new EntityManager();
-            _gameSession.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(640.0f, 360.0f));
+            _gameSession.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(64.0f, 36.0f));
             _gameSession.AssetManager = new AssetManager();
+            _gameSession.DebugLog = new UI.Debug.DebugLog();
             base.Initialize();
         }
 
@@ -35,6 +36,8 @@ namespace ProjectValkyrie
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _gameSession.AssetManager.loadImageAsset("hero", "images/hero", Content);
+            _gameSession.AssetManager.loadFontAsset("debug-font", "fonts/DebugFont", Content);
+
             DummyLoadLevel();
         }
 
@@ -48,6 +51,7 @@ namespace ProjectValkyrie
                 Exit();
             _gameSession.PhysicsManager.Update(gameTime); // Updates physical position of objects in game world
             _gameSession.EntityManager.Update(gameTime); // Updates game states based on changes to physical world
+            _gameSession.DebugLog.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -56,6 +60,7 @@ namespace ProjectValkyrie
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null);
             _gameSession.EntityManager.Render(spriteBatch);
+            _gameSession.DebugLog.Render(spriteBatch);
             //_gameSession.RenderManager.Render(spriteBatch); // Renders textures based on physical location and state value
             spriteBatch.End();
             base.Draw(gameTime);
@@ -66,16 +71,16 @@ namespace ProjectValkyrie
             Hero hero = new Hero();
             PhysicsComponent pc = new PhysicsComponent(hero.Id);
             pc.Type = PhysicsComponent.PhysicsType.INTERSECT;
-            pc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
-            pc.Position = new Vector2(100.0f, 100.0f);
+            pc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 3, 3);
+            pc.Position = new Vector2(1.0f, 1.0f);
             hero.PhysicsId = _gameSession.PhysicsManager.Add(pc);
             _gameSession.EntityManager.AddEntity(hero);
 
             SquareZone szone = new SquareZone();
             PhysicsComponent spc = new PhysicsComponent(szone.Id);
             spc.Type = PhysicsComponent.PhysicsType.INTERSECT;
-            spc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
-            spc.Position = new Vector2(110.0f, 110.0f);
+            spc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 3, 3);
+            spc.Position = new Vector2(20.0f, 20.0f);
             szone.PhysicsId = _gameSession.PhysicsManager.Add(spc);
             _gameSession.EntityManager.AddEntity(szone);
         }

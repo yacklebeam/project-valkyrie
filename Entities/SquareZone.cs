@@ -18,7 +18,6 @@ namespace ProjectValkyrie.Entities
 
         public override void OnEvent(long id)
         {
-            Console.WriteLine("SquareZone OnEvent() triggered");
         }
 
         public override void OnUpdate(GameTime t)
