@@ -55,6 +55,11 @@ namespace ProjectValkyrie.Managers
             }
         }
 
+        public void Delete(long id)
+        {
+            if(id > -1) components.Remove(id);
+        }
+
         public List<long> GetIntersections(long id)
         {
             List<long> pcs = new List<long>();

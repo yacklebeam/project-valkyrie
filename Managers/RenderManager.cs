@@ -36,5 +36,10 @@ namespace ProjectValkyrie.Managers
                 r.Render(s);
             }
         }
+
+        public void Delete(long id)
+        {
+            if (id > -1) renders.Remove(id);
+        }
     }
 }

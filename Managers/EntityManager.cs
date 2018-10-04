@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using ProjectValkyrie.Entities.Base;
 
 namespace ProjectValkyrie.Managers
@@ -8,6 +7,8 @@ namespace ProjectValkyrie.Managers
     class EntityManager
     {
         private readonly Dictionary<long, GameEntity> entites;
+        private readonly Dictionary<long, GameEntity> newEntities;
+        private readonly List<long> deletedEntities;
         private long currentId;
         private long playerId;
 
@@ -17,12 +18,21 @@ namespace ProjectValkyrie.Managers
         {
             playerId = -1;
             currentId = 0;
+            newEntities = new Dictionary<long, GameEntity>();
             entites = new Dictionary<long, GameEntity>();
+            deletedEntities = new List<long>();
         }
 
         public GameEntity Get(long id)
         {
-            return entites[id];
+            try
+            {
+                return entites[id];
+            }
+            catch(KeyNotFoundException)
+            {
+                return null;
+            }
         }
 
         public long GetNextID()
@@ -34,15 +44,43 @@ namespace ProjectValkyrie.Managers
 
         public void Update(GameTime t)
         {
-            foreach(Entities.Base.GameEntity e in entites.Values)
+            foreach(GameEntity e in entites.Values)
             {
                 e.Update(t); // Entity Update
             }
+
+            foreach(GameEntity g in newEntities.Values)
+            {
+                entites.Add(g.Id, g);
+            }
+
+            foreach (long i in deletedEntities)
+            {
+                entites.Remove(i);
+            }
+
+            newEntities.Clear();
+            deletedEntities.Clear();
         }
         
         public void AddEntity(GameEntity e)
         {
-            entites.Add(e.Id, e);
+            newEntities.Add(e.Id, e);
+        }
+
+        public Vector2 GetPlayerPosition()
+        {
+            if (playerId > -1)
+            {
+                long playerPhysId = entites[playerId].PhysicsId;
+                return GameSession.Instance.PhysicsManager.Get(playerPhysId).Position;
+            }
+            else return new Vector2(0, 0);
+        }
+
+        public void Delete(long id)
+        {
+            if (id > -1) deletedEntities.Add(id);
         }
     }
 }

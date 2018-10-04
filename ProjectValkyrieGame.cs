@@ -41,6 +41,7 @@ namespace ProjectValkyrie
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _gameSession.AssetManager.loadImageAsset("hero", "images/Hero", Content);
+            _gameSession.AssetManager.loadImageAsset("goblin", "images/Goblin", Content);
             _gameSession.AssetManager.loadImageAsset("hitbox", "images/Hitbox", Content);
             _gameSession.AssetManager.loadImageAsset("active-firetrap", "images/FireTrapActive", Content);
             _gameSession.AssetManager.loadImageAsset("firetrap", "images/FireTrap", Content);
@@ -78,31 +79,17 @@ namespace ProjectValkyrie
 
         private void DummyLoadLevel()
         {
-            DummyLoadFireTrap(new Vector2(10.0f, 10.0f), false);
-            DummyLoadFireTrap(new Vector2(10.0f, 12.0f), true);
-            DummyLoadFireTrap(new Vector2(10.0f, 14.0f), false);
-            DummyLoadFireTrap(new Vector2(10.0f, 16.0f), true);
-            DummyLoadFireTrap(new Vector2(10.0f, 18.0f), false);
-            DummyLoadFireTrap(new Vector2(12.0f, 10.0f), true);
-            DummyLoadFireTrap(new Vector2(12.0f, 12.0f), false);
-            DummyLoadFireTrap(new Vector2(12.0f, 14.0f), true);
-            DummyLoadFireTrap(new Vector2(12.0f, 16.0f), false);
-            DummyLoadFireTrap(new Vector2(12.0f, 18.0f), true);
-            DummyLoadFireTrap(new Vector2(14.0f, 10.0f), false);
-            DummyLoadFireTrap(new Vector2(14.0f, 12.0f), true);
-            DummyLoadFireTrap(new Vector2(14.0f, 14.0f), false);
-            DummyLoadFireTrap(new Vector2(14.0f, 16.0f), true);
-            DummyLoadFireTrap(new Vector2(14.0f, 18.0f), false);
-            DummyLoadFireTrap(new Vector2(16.0f, 10.0f), true);
-            DummyLoadFireTrap(new Vector2(16.0f, 12.0f), false);
-            DummyLoadFireTrap(new Vector2(16.0f, 14.0f), true);
-            DummyLoadFireTrap(new Vector2(16.0f, 16.0f), false);
-            DummyLoadFireTrap(new Vector2(16.0f, 18.0f), true);
-            DummyLoadFireTrap(new Vector2(18.0f, 10.0f), false);
-            DummyLoadFireTrap(new Vector2(18.0f, 12.0f), true);
-            DummyLoadFireTrap(new Vector2(18.0f, 14.0f), false);
-            DummyLoadFireTrap(new Vector2(18.0f, 16.0f), true);
-            DummyLoadFireTrap(new Vector2(18.0f, 18.0f), false);
+            Goblin gob = new Goblin();
+            PhysicsComponent gobPc = new PhysicsComponent(gob.Id);
+            gobPc.Type = PhysicsComponent.PhysicsType.NONE;
+            gobPc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 1, 1);
+            gobPc.Position = new Vector2(10.0f, 10.0f);
+            gob.PhysicsId = _gameSession.PhysicsManager.Add(gobPc);
+            RenderComponent gobRc = new RenderComponent(gob.PhysicsId);
+            gobRc.TextureName = "goblin";
+            gobRc.Offset = new Vector2(-10.0f, -10.0f);
+            gob.RenderId = _gameSession.RenderManager.Add(gobRc);
+            _gameSession.EntityManager.AddEntity(gob);
 
             DummyLoadHero(new Vector2(25.0f, 25.0f));
         }

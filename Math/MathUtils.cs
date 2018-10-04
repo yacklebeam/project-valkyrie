@@ -21,6 +21,14 @@ namespace ProjectValkyrie.Math
             return r;
         }
 
+        public static float Distance(Vector2 a, Vector2 b)
+        {
+            float Xdist = a.X - b.X;
+            float Ydist = a.Y - b.Y;
+
+            return (float)System.Math.Sqrt(Xdist * Xdist + Ydist * Ydist);
+        }
+
         public static Hitbox GetRectangleHitbox(Vector2 direction, float length, float width)
         {
             float w = width / 2.0f;
