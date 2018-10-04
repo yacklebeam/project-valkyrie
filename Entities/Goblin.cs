@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using ProjectValkyrie.Components;
+using ValhallaEngine.Components;
 using ProjectValkyrie.Entities.Attack;
-using ProjectValkyrie.Entities.Base;
-using ProjectValkyrie.Managers;
+using ValhallaEngine.Entities;
+using ValhallaEngine.Managers;
+using ValhallaEngine.Math;
 
 namespace ProjectValkyrie.Entities
 {
@@ -30,7 +31,7 @@ namespace ProjectValkyrie.Entities
             Vector2 targetPos = GameSession.Instance.EntityManager.GetPlayerPosition();
             if(cooldown > 0.0) cooldown -= t.ElapsedGameTime.TotalSeconds;
 
-            if (Math.MathUtils.Distance(targetPos, GameSession.Instance.PhysicsManager.Get(PhysicsId).Position) < 1.5f)
+            if (MathUtils.Distance(targetPos, GameSession.Instance.PhysicsManager.Get(PhysicsId).Position) < 1.5f)
             {// Attack
                 GameSession.Instance.PhysicsManager.Get(PhysicsId).Velocity = new Vector2(0.0f, 0.0f);
                 if(cooldown <= 0.0) DoAttack();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using ProjectValkyrie.Entities.Base;
-using ProjectValkyrie.Managers;
+using ValhallaEngine.Entities;
+using ValhallaEngine.Managers;
 
 namespace ProjectValkyrie.Entities
 {
@@ -40,12 +40,12 @@ namespace ProjectValkyrie.Entities
                 active = !active;
                 if (active)
                 {
-                    SetTexture("active-firetrap");
+                    //SetTexture("active-firetrap");
                     activeTime += 5.0f;
                 }
                 else
                 {
-                    SetTexture("firetrap");
+                    //SetTexture("firetrap");
                     activeTime += 15.0f;
                 }
             }
