@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using ProjectValkyrie.Managers;
 
 namespace ProjectValkyrie.Entities.Base
@@ -51,16 +50,21 @@ namespace ProjectValkyrie.Entities.Base
             OnUpdate(t);
         }
 
-        public void AddHealth(int delta)
+        public virtual void AddHealth(int delta)
         {
             health += delta;
             if (health > maxHealth) health = maxHealth;
         }
 
-        public void SubtractHealth(int delta)
+        public virtual void SubtractHealth(int delta)
         {
             health -= delta;
             if (health < 0) health = 0;
+        }
+
+        public void SetTexture(string textureName)
+        {
+            if(textureName != "" && renderId != -1) GameSession.Instance.RenderManager.Get(RenderId).TextureName = textureName;
         }
     }
 }

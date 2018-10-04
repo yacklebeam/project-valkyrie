@@ -9,9 +9,13 @@ namespace ProjectValkyrie.Managers
     {
         private readonly Dictionary<long, GameEntity> entites;
         private long currentId;
+        private long playerId;
+
+        public long PlayerId { get => playerId; set => playerId = value; }
 
         public EntityManager()
         {
+            playerId = -1;
             currentId = 0;
             entites = new Dictionary<long, GameEntity>();
         }

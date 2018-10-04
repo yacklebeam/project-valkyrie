@@ -15,6 +15,11 @@ namespace ProjectValkyrie.Managers
             renders = new Dictionary<long, RenderComponent>();
         }
 
+        public RenderComponent Get(long id)
+        {
+            return renders[id];
+        }
+
         public long Add(RenderComponent r)
         {
             currentId++;

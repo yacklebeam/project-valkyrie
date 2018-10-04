@@ -1,15 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using ProjectValkyrie.Entities.Base;
 using Microsoft.Xna.Framework.Input;
-using System;
 using ProjectValkyrie.Managers;
 
 namespace ProjectValkyrie.Entities
 {
-    class Hero : Base.GameEntity
+    class Hero : GameEntity
     {
+        private float invulnerableTime = 0.0f;
         private Items.Base.GameItem primaryWeapon = null;
-        private int counter = 0;
 
         public Hero() : base()
         {
@@ -24,12 +23,12 @@ namespace ProjectValkyrie.Entities
 
         public override void OnEvent(long id)
         {
-            GameSession.Instance.DebugLog.AddMessage("Hero OnEvent() triggered " + counter.ToString());
-            counter++;
         }
 
         public override void OnUpdate(GameTime t)
         {
+            if(invulnerableTime > 0.0f) invulnerableTime -= (float)t.ElapsedGameTime.TotalSeconds;
+            
             Vector2 leftStickNormalized = new Vector2(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X, GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y * -1.0f);
             GameSession.Instance.PhysicsManager.Get(PhysicsId).Velocity = Speed * leftStickNormalized;
 
@@ -42,6 +41,21 @@ namespace ProjectValkyrie.Entities
         private void PrimaryAttack()
         {
             if (primaryWeapon != null) primaryWeapon.OnUsePrimary(this);
+        }
+
+        public override void SubtractHealth(int delta)
+        {
+            if(invulnerableTime > 0.0f)
+            {
+                return;
+            }
+            else
+            {
+                GameSession.Instance.DebugLog.AddMessage("DANGER: Hero took damage!");
+
+                invulnerableTime = 1.0f;
+                base.SubtractHealth(delta);
+            }
         }
     }
 }
