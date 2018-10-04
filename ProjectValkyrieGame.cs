@@ -79,19 +79,27 @@ namespace ProjectValkyrie
 
         private void DummyLoadLevel()
         {
+            DummyLoadGoblin(new Vector2(10.0f, 10.0f));
+            DummyLoadGoblin(new Vector2(15.0f, 10.0f));
+            DummyLoadGoblin(new Vector2(50.0f, 30.0f));
+            DummyLoadGoblin(new Vector2(35.0f, 20.0f));
+
+            DummyLoadHero(new Vector2(25.0f, 25.0f));
+        }
+
+        private void DummyLoadGoblin(Vector2 pos)
+        {
             Goblin gob = new Goblin();
             PhysicsComponent gobPc = new PhysicsComponent(gob.Id);
-            gobPc.Type = PhysicsComponent.PhysicsType.NONE;
-            gobPc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 1, 1);
-            gobPc.Position = new Vector2(10.0f, 10.0f);
+            gobPc.Type = PhysicsComponent.PhysicsType.COLLIDE;
+            gobPc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 0.5f, 0.5f);
+            gobPc.Position = pos;
             gob.PhysicsId = _gameSession.PhysicsManager.Add(gobPc);
             RenderComponent gobRc = new RenderComponent(gob.PhysicsId);
             gobRc.TextureName = "goblin";
             gobRc.Offset = new Vector2(-10.0f, -10.0f);
             gob.RenderId = _gameSession.RenderManager.Add(gobRc);
             _gameSession.EntityManager.AddEntity(gob);
-
-            DummyLoadHero(new Vector2(25.0f, 25.0f));
         }
 
         private void DummyLoadHero(Vector2 pos)
