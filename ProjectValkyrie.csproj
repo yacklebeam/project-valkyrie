@@ -81,7 +81,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="ValhallaEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\valhalla-engine\bin\x64\Release\ValhallaEngine.dll</HintPath>
+      <HintPath>Depends\ValhallaEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
