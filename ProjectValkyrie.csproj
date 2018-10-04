@@ -61,31 +61,26 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Components\PhysicsComponent.cs" />
-    <Compile Include="Components\RenderComponent.cs" />
-    <Compile Include="Entities\Base\GameEntity.cs" />
     <Compile Include="Entities\Hero.cs" />
     <Compile Include="Entities\SquareZone.cs" />
     <Compile Include="Items\Base\GameItem.cs" />
     <Compile Include="Items\HealthPotion.cs" />
     <Compile Include="Items\SquireSword.cs" />
-    <Compile Include="Managers\AssetManager.cs" />
-    <Compile Include="Managers\EntityManager.cs" />
-    <Compile Include="Managers\GameSession.cs" />
-    <Compile Include="Managers\PhysicsManager.cs" />
-    <Compile Include="Managers\RenderManager.cs" />
-    <Compile Include="Math\Hitbox.cs" />
-    <Compile Include="Math\MathUtils.cs" />
     <Compile Include="ProjectValkyrieGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+    <Reference Include="ValhallaEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ValhallaEngine\ValhallaEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
@@ -93,12 +88,6 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="ValhallaEngine\ValhallaEngine.csproj">
-      <Project>{3d84bcc7-bbaa-48c9-aeb2-cead31c98294}</Project>
-      <Name>ValhallaEngine</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

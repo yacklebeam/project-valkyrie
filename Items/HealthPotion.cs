@@ -1,4 +1,4 @@
-﻿using ProjectValkyrie.Entities.Base;
+﻿using ValhallaEngine.Entities;
 
 namespace ProjectValkyrie.Items
 {

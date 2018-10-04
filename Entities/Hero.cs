@@ -1,21 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
-using ProjectValkyrie.Entities.Base;
 using Microsoft.Xna.Framework.Input;
 using System;
-using ProjectValkyrie.Managers;
+using ValhallaEngine.Managers;
+using ValhallaEngine.Components;
+using ValhallaEngine.Entities;
+using ValhallaEngine.Math;
 
 namespace ProjectValkyrie.Entities
 {
-    class Hero : Base.GameEntity
+    class Hero : GameEntity
     {
         private Items.Base.GameItem primaryWeapon = null;
 
         public Hero(Vector2 position) : base()
         {
             HasRenderable = true;
-            Components.PhysicsComponent pc = new Components.PhysicsComponent(Id);
-            pc.Type = Components.PhysicsComponent.PhysicsType.INTERSECT;
-            pc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
+            PhysicsComponent pc = new PhysicsComponent(Id);
+            pc.Type = PhysicsComponent.PhysicsType.INTERSECT;
+            pc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
             pc.Position = position;
             primaryWeapon = new Items.SquireSword();
 

@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using ProjectValkyrie.Managers;
+using ValhallaEngine.Managers;
+using ValhallaEngine.Entities;
+using ValhallaEngine.Math;
+using ValhallaEngine.Components;
 
 namespace ProjectValkyrie.Entities
 {
-    class SquareZone : Base.GameEntity
+    class SquareZone : GameEntity
     {
         public SquareZone(Vector2 position) : base()
         {
-            Components.PhysicsComponent pc = new Components.PhysicsComponent(Id);
-            pc.Type = Components.PhysicsComponent.PhysicsType.INTERSECT;
-            pc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
+            PhysicsComponent pc = new PhysicsComponent(Id);
+            pc.Type = PhysicsComponent.PhysicsType.INTERSECT;
+            pc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 100, 100);
             pc.Position = position;
 
             Type = EntityType.ZONE;
