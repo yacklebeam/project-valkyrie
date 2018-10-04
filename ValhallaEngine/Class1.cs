@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Engine
+﻿namespace ValhallaEngine
 {
     public class Class1
     {
