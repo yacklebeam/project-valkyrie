@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using ProjectValkyrie.Entities.Base;
-using ProjectValkyrie.Managers;
+using ValhallaEngine.Entities;
+using ValhallaEngine.Managers;
+using ValhallaEngine.Components;
+using ValhallaEngine.Math;
 
 namespace ProjectValkyrie.Items
 {
@@ -24,9 +26,9 @@ namespace ProjectValkyrie.Items
                 // Create new physics object for the hitbox
                 Type = EntityType.ZONE;
 
-                Components.PhysicsComponent pc = new Components.PhysicsComponent(Id);
+                PhysicsComponent pc = new PhysicsComponent(Id);
                 pc.Direction = direction;
-                pc.Hitbox = Math.MathUtils.GetRectangleHitbox(pc.Direction, 10.0f, 10.0f);
+                pc.Hitbox = MathUtils.GetRectangleHitbox(pc.Direction, 10.0f, 10.0f);
                 pc.Hitbox.Translate(pc.Direction * 10.0f); // Move forward 10 units (we don't need the hitbox AROUND the sword, but in front of it
                 PhysicsId = GameSession.Instance.PhysicsManager.Add(pc);
             }
