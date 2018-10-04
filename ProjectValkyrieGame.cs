@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using ProjectValkyrie.Components;
+using ValhallaEngine.Components;
 using ProjectValkyrie.Entities;
-using ProjectValkyrie.Managers;
+using ValhallaEngine.Math;
+using ValhallaEngine.Managers;
 using ProjectValkyrie.UI;
 
 namespace ProjectValkyrie
@@ -31,7 +32,6 @@ namespace ProjectValkyrie
             _gameSession.EntityManager = new EntityManager();
             _gameSession.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(64.0f, 36.0f));
             _gameSession.AssetManager = new AssetManager();
-            _gameSession.DebugLog = new UI.Debug.DebugLog();
             _gameSession.RenderManager = new RenderManager();
             hud = new HUD();
             base.Initialize();
@@ -60,7 +60,6 @@ namespace ProjectValkyrie
                 Exit();
             _gameSession.PhysicsManager.Update(gameTime);
             _gameSession.EntityManager.Update(gameTime);
-            _gameSession.DebugLog.Update(gameTime);
             hud.Update();
             base.Update(gameTime);
         }
@@ -71,7 +70,6 @@ namespace ProjectValkyrie
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null);
             //_gameSession.PhysicsManager.Render(spriteBatch);
             _gameSession.RenderManager.Render(spriteBatch); // Renders textures based on physical location and state value
-            _gameSession.DebugLog.Render(spriteBatch);
             hud.Render(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
@@ -92,7 +90,7 @@ namespace ProjectValkyrie
             Goblin gob = new Goblin();
             PhysicsComponent gobPc = new PhysicsComponent(gob.Id);
             gobPc.Type = PhysicsComponent.PhysicsType.COLLIDE;
-            gobPc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 0.5f, 0.5f);
+            gobPc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 0.5f, 0.5f);
             gobPc.Position = pos;
             gob.PhysicsId = _gameSession.PhysicsManager.Add(gobPc);
             RenderComponent gobRc = new RenderComponent(gob.PhysicsId);
@@ -109,7 +107,7 @@ namespace ProjectValkyrie
 
             PhysicsComponent pc = new PhysicsComponent(hero.Id);
             pc.Type = PhysicsComponent.PhysicsType.NONE;
-            pc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 1, 1);
+            pc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 1, 1);
             pc.Position = pos;
             hero.PhysicsId = _gameSession.PhysicsManager.Add(pc);
 
@@ -128,7 +126,7 @@ namespace ProjectValkyrie
 
             PhysicsComponent spc = new PhysicsComponent(szone.Id);
             spc.Type = PhysicsComponent.PhysicsType.INTERSECT;
-            spc.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 1.5f, 1.5f);
+            spc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 1.5f, 1.5f);
             spc.Position = pos;
             szone.PhysicsId = _gameSession.PhysicsManager.Add(spc);
 

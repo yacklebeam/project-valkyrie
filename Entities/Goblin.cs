@@ -54,13 +54,11 @@ namespace ProjectValkyrie.Entities
         private void DoAttack()
         {
             cooldown = 1.0;
-            GameSession.Instance.DebugLog.AddMessage("Goblin attacks");
-
             BasicAttack attack = new BasicAttack();
             attack.Damage = 5;
             PhysicsComponent physics = new PhysicsComponent(attack.Id);
             physics.Type = PhysicsComponent.PhysicsType.INTERSECT;
-            physics.Hitbox = Math.MathUtils.GetRectangleHitbox(new Vector2(0, 1), 3, 3);
+            physics.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 3, 3);
             physics.Position = GameSession.Instance.PhysicsManager.Get(PhysicsId).Position;
             attack.PhysicsId = GameSession.Instance.PhysicsManager.Add(physics);
             GameSession.Instance.EntityManager.AddEntity(attack);

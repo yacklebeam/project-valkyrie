@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ProjectValkyrie.Entities.Base;
+using ValhallaEngine.Entities;
 using Microsoft.Xna.Framework.Input;
-using ProjectValkyrie.Managers;
+using ValhallaEngine.Managers;
 
 namespace ProjectValkyrie.Entities
 {
@@ -51,8 +51,6 @@ namespace ProjectValkyrie.Entities
             }
             else
             {
-                GameSession.Instance.DebugLog.AddMessage("DANGER: Hero took damage!");
-
                 invulnerableTime = 1.0f;
                 base.SubtractHealth(delta);
             }
