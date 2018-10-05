@@ -76,6 +76,22 @@ namespace ProjectValkyrie
 
         private void DummyLoadLevel()
         {
+            // DummyLoadGoblin(new Vector2(10.0f, 10.0f));
+            // DummyLoadGoblin(new Vector2(15.0f, 10.0f));
+            // DummyLoadGoblin(new Vector2(50.0f, 30.0f));
+            // DummyLoadGoblin(new Vector2(35.0f, 20.0f));
+            DarkWizard darkwiz = new DarkWizard(GameSession.NextID);
+           PhysicsComponent darkwizPc = new PhysicsComponent(darkwiz.Id);
+            darkwizPc.Type = PhysicsComponent.PhysicsType.NONE;
+            darkwizPc.Position = new Vector2(40.0f, 10.0f);
+            darkwizPc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 0.5f, 0.5f);
+            _gs.PhysicsManager.Add(darkwizPc);
+            RenderComponent darkwizRc = new RenderComponent(darkwiz.Id);
+            darkwizRc.TextureName = "hero";
+            darkwizRc.Offset = new Vector2(-10.0f, -10.0f);
+            _gs.RenderManager.Add(darkwizRc);
+            _gs.EntityManager.Add(darkwiz);
+
             DummyLoadHero(new Vector2(25.0f, 25.0f));
         }
 
