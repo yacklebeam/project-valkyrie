@@ -76,11 +76,6 @@ namespace ProjectValkyrie
 
         private void DummyLoadLevel()
         {
-            DummyLoadGoblin(new Vector2(10.0f, 10.0f));
-            DummyLoadGoblin(new Vector2(15.0f, 10.0f));
-            DummyLoadGoblin(new Vector2(50.0f, 30.0f));
-            DummyLoadGoblin(new Vector2(35.0f, 20.0f));
-
             DummyLoadHero(new Vector2(25.0f, 25.0f));
         }
 

@@ -2,7 +2,6 @@
 using ValhallaEngine.Components;
 using ProjectValkyrie.Entities.Attack;
 using ValhallaEngine.Entities;
-using ValhallaEngine.Managers;
 using ValhallaEngine.Math;
 
 namespace ProjectValkyrie.Entities
@@ -13,8 +12,8 @@ namespace ProjectValkyrie.Entities
 
         public Goblin(long id) : base(id)
         {
-            MaxHealth = 5;
-            Health = 5;
+            MaxHealth = 15;
+            Health = 15;
             Speed = 5.0f;
 
             cooldown = 1.0;
@@ -28,6 +27,14 @@ namespace ProjectValkyrie.Entities
 
         public override void OnUpdate(GameTime t)
         {
+            if(Health <= 0)
+            {
+                GameSession.Instance.EntityManager.Delete(Id);
+                GameSession.Instance.PhysicsManager.Delete(Id);
+                GameSession.Instance.RenderManager.Delete(Id);
+                return;
+            }
+
             Vector2 targetPos = GameSession.Instance.PhysicsManager.Get(GameSession.Instance.EntityManager.PlayerId).Position;
             if(cooldown > 0.0) cooldown -= t.ElapsedGameTime.TotalSeconds;
 
@@ -38,7 +45,6 @@ namespace ProjectValkyrie.Entities
             }
             else
             {
-
                 Vector2 targetSpeed = Speed * (targetPos - GameSession.Instance.PhysicsManager.Get(Id).Position);
 
                 if (targetSpeed.Length() > Speed)
