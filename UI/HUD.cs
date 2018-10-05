@@ -36,14 +36,14 @@ namespace ProjectValkyrie.UI
 
         public void Update()
         {
-            currentHealth = GameSession.Instance.EntityManager.Get(GameSession.Instance.EntityManager.PlayerId).Health;
+            //currentHealth = GameSession.Instance.EntityManager.Get(GameSession.Instance.EntityManager.PlayerId).Health;
         }
 
         public void Render(SpriteBatch sb)
         {
-            SpriteFont font = GameSession.Instance.AssetManager.getFont("debug-font");
+            //SpriteFont font = GameSession.Instance.AssetManager.getFont("debug-font");
 
-            sb.DrawString(font, currentHealth + " / " + maxHealth, new Vector2(10.0f, 10.0f), Color.White);
+            //sb.DrawString(font, currentHealth + " / " + maxHealth, new Vector2(10.0f, 10.0f), Color.White);
         }
     }
 

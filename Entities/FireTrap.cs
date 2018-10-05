@@ -9,14 +9,14 @@ namespace ProjectValkyrie.Entities
         private bool active;
         private float activeTime;
 
-        public FireTrap() : base()
+        public FireTrap(long id) : base(id)
         {
             Type = EntityType.ZONE;
             activeTime = 10.0f;
             active = false;
         }
 
-        public FireTrap(bool a): base()
+        public FireTrap(long id, bool a): base(id)
         {
             Type = EntityType.ZONE;
             activeTime = (a)?5.0f:10.0f;
@@ -25,11 +25,11 @@ namespace ProjectValkyrie.Entities
 
         public override void OnEvent(long id)
         {
-            GameEntity ge = GameSession.Instance.EntityManager.Get(id);
-            if (active && ge.Type == EntityType.PLAYER)
+            //GameEntity ge = GameSession.Instance.EntityManager.Get(id);
+            /*if (active && ge.Type == EntityType.PLAYER)
             {
                 ge.SubtractHealth(5);
-            }
+            }*/
         }
 
         public override void OnUpdate(GameTime t)

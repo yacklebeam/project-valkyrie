@@ -14,9 +14,14 @@ namespace ProjectValkyrie
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        EntityManager e;
+        AssetManager a;
+        PhysicsManager p;
+        RenderManager r;
+
         HUD hud;
 
-        GameSession _gameSession = GameSession.Instance;
+        int globalID = 0;
 
         public ProjectValkyrieGame()
         {
@@ -29,10 +34,10 @@ namespace ProjectValkyrie
 
         protected override void Initialize()
         {
-            _gameSession.EntityManager = new EntityManager();
-            _gameSession.PhysicsManager = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(64.0f, 36.0f));
-            _gameSession.AssetManager = new AssetManager();
-            _gameSession.RenderManager = new RenderManager();
+            e = new EntityManager();
+            p = new PhysicsManager(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Vector2(64.0f, 36.0f));
+            a = new AssetManager();
+            r = new RenderManager();
             hud = new HUD();
             base.Initialize();
         }
@@ -40,12 +45,12 @@ namespace ProjectValkyrie
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _gameSession.AssetManager.loadImageAsset("hero", "images/Hero", Content);
-            _gameSession.AssetManager.loadImageAsset("goblin", "images/Goblin", Content);
-            _gameSession.AssetManager.loadImageAsset("hitbox", "images/Hitbox", Content);
-            _gameSession.AssetManager.loadImageAsset("active-firetrap", "images/FireTrapActive", Content);
-            _gameSession.AssetManager.loadImageAsset("firetrap", "images/FireTrap", Content);
-            _gameSession.AssetManager.loadFontAsset("debug-font", "fonts/DebugFont", Content);
+            a.loadImageAsset("hero", "images/Hero", Content);
+            a.loadImageAsset("goblin", "images/Goblin", Content);
+            a.loadImageAsset("hitbox", "images/Hitbox", Content);
+            a.loadImageAsset("active-firetrap", "images/FireTrapActive", Content);
+            a.loadImageAsset("firetrap", "images/FireTrap", Content);
+            a.loadFontAsset("debug-font", "fonts/DebugFont", Content);
 
             DummyLoadLevel();
         }
@@ -58,8 +63,8 @@ namespace ProjectValkyrie
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            _gameSession.PhysicsManager.Update(gameTime);
-            _gameSession.EntityManager.Update(gameTime);
+            p.Update(gameTime, e);
+            e.Update(gameTime);
             hud.Update();
             base.Update(gameTime);
         }
@@ -68,8 +73,7 @@ namespace ProjectValkyrie
         {
             GraphicsDevice.Clear(Color.LightSlateGray);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null);
-            //_gameSession.PhysicsManager.Render(spriteBatch);
-            _gameSession.RenderManager.Render(spriteBatch); // Renders textures based on physical location and state value
+            r.Render(spriteBatch, p, a); // Renders textures based on physical location and state value
             hud.Render(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
@@ -87,55 +91,55 @@ namespace ProjectValkyrie
 
         private void DummyLoadGoblin(Vector2 pos)
         {
-            Goblin gob = new Goblin();
+            Goblin gob = new Goblin(globalID++);
             PhysicsComponent gobPc = new PhysicsComponent(gob.Id);
             gobPc.Type = PhysicsComponent.PhysicsType.COLLIDE;
             gobPc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 0.5f, 0.5f);
             gobPc.Position = pos;
-            gob.PhysicsId = _gameSession.PhysicsManager.Add(gobPc);
-            RenderComponent gobRc = new RenderComponent(gob.PhysicsId);
+            p.Add(gobPc);
+            RenderComponent gobRc = new RenderComponent(gob.Id);
             gobRc.TextureName = "goblin";
             gobRc.Offset = new Vector2(-10.0f, -10.0f);
-            gob.RenderId = _gameSession.RenderManager.Add(gobRc);
-            _gameSession.EntityManager.AddEntity(gob);
+            r.Add(gobRc);
+            e.Add(gob);
         }
 
         private void DummyLoadHero(Vector2 pos)
         {
             // Load the Hero
-            Hero hero = new Hero();
+            Hero hero = new Hero(globalID++);
 
             PhysicsComponent pc = new PhysicsComponent(hero.Id);
             pc.Type = PhysicsComponent.PhysicsType.NONE;
             pc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 1, 1);
             pc.Position = pos;
-            hero.PhysicsId = _gameSession.PhysicsManager.Add(pc);
+            p.Add(pc);
 
-            RenderComponent rc = new RenderComponent(hero.PhysicsId);
+            RenderComponent rc = new RenderComponent(hero.Id);
             rc.TextureName = "hero";
             rc.Offset = new Vector2(-10.0f, -10.0f);
-            hero.RenderId = _gameSession.RenderManager.Add(rc);
+            r.Add(rc);
 
-            _gameSession.EntityManager.AddEntity(hero);
-            _gameSession.EntityManager.PlayerId = hero.Id;
+            e.Add(hero);
+            e.PlayerId = hero.Id;
         }
 
         private void DummyLoadFireTrap(Vector2 pos, bool active)
         {
-            FireTrap szone = new FireTrap(active);
+            FireTrap szone = new FireTrap(globalID++, active);
 
             PhysicsComponent spc = new PhysicsComponent(szone.Id);
             spc.Type = PhysicsComponent.PhysicsType.INTERSECT;
             spc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 1.5f, 1.5f);
             spc.Position = pos;
-            szone.PhysicsId = _gameSession.PhysicsManager.Add(spc);
+            p.Add(spc);
 
-            RenderComponent src = new RenderComponent(szone.PhysicsId);
+            RenderComponent src = new RenderComponent(szone.Id);
             src.TextureName = (active)?"active-firetrap": "firetrap";
             src.Offset = new Vector2(-20.0f, -20.0f);
-            szone.RenderId = _gameSession.RenderManager.Add(src);
+            r.Add(src);
 
-            _gameSession.EntityManager.AddEntity(szone);
+            e.Add(szone);
         }
     }
 }

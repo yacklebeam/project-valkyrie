@@ -60,14 +60,14 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entities\Attack\Attack.cs" />
     <Compile Include="Entities\FireTrap.cs" />
     <Compile Include="Entities\Goblin.cs" />
     <Compile Include="Entities\Hero.cs" />
-    <Compile Include="Items\Base\GameItem.cs" />
-    <Compile Include="Items\HealthPotion.cs" />
-    <Compile Include="Items\SquireSword.cs" />
     <Compile Include="ProjectValkyrieGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

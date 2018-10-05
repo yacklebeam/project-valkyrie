@@ -11,7 +11,7 @@ namespace ProjectValkyrie.Entities
     {
         private double cooldown;
 
-        public Goblin() : base()
+        public Goblin(long id) : base(id)
         {
             MaxHealth = 5;
             Health = 5;
@@ -28,10 +28,10 @@ namespace ProjectValkyrie.Entities
 
         public override void OnUpdate(GameTime t)
         {
-            Vector2 targetPos = GameSession.Instance.EntityManager.GetPlayerPosition();
+            //Vector2 targetPos = GameSession.Instance.EntityManager.GetPlayerPosition();
             if(cooldown > 0.0) cooldown -= t.ElapsedGameTime.TotalSeconds;
 
-            if (MathUtils.Distance(targetPos, GameSession.Instance.PhysicsManager.Get(PhysicsId).Position) < 1.5f)
+            /*if (MathUtils.Distance(targetPos, GameSession.Instance.PhysicsManager.Get(PhysicsId).Position) < 1.5f)
             {// Attack
                 GameSession.Instance.PhysicsManager.Get(PhysicsId).Velocity = new Vector2(0.0f, 0.0f);
                 if(cooldown <= 0.0) DoAttack();
@@ -48,12 +48,12 @@ namespace ProjectValkyrie.Entities
                 }
 
                 GameSession.Instance.PhysicsManager.Get(PhysicsId).Velocity = targetSpeed;
-            }
+            }*/
         }
 
         private void DoAttack()
         {
-            cooldown = 1.0;
+            /*cooldown = 1.0;
             BasicAttack attack = new BasicAttack();
             attack.Damage = 5;
             PhysicsComponent physics = new PhysicsComponent(attack.Id);
@@ -61,7 +61,7 @@ namespace ProjectValkyrie.Entities
             physics.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 3, 3);
             physics.Position = GameSession.Instance.PhysicsManager.Get(PhysicsId).Position;
             attack.PhysicsId = GameSession.Instance.PhysicsManager.Add(physics);
-            GameSession.Instance.EntityManager.AddEntity(attack);
+            GameSession.Instance.EntityManager.AddEntity(attack);*/
         }
     }
 }

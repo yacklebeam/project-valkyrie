@@ -8,12 +8,9 @@ namespace ProjectValkyrie.Entities
     class Hero : GameEntity
     {
         private float invulnerableTime = 0.0f;
-        private Items.Base.GameItem primaryWeapon = null;
 
-        public Hero() : base()
+        public Hero(long id) : base(id)
         {
-            primaryWeapon = new Items.SquireSword();
-
             MaxHealth = 100;
             Health = 100;
             Speed = 10.0f;
@@ -27,7 +24,7 @@ namespace ProjectValkyrie.Entities
 
         public override void OnUpdate(GameTime t)
         {
-            if(invulnerableTime > 0.0f) invulnerableTime -= (float)t.ElapsedGameTime.TotalSeconds;
+            /*if(invulnerableTime > 0.0f) invulnerableTime -= (float)t.ElapsedGameTime.TotalSeconds;
             
             Vector2 leftStickNormalized = new Vector2(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X, GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y * -1.0f);
             GameSession.Instance.PhysicsManager.Get(PhysicsId).Velocity = Speed * leftStickNormalized;
@@ -35,12 +32,7 @@ namespace ProjectValkyrie.Entities
             if(GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
             {
                 PrimaryAttack();
-            }
-        }
-
-        private void PrimaryAttack()
-        {
-            if (primaryWeapon != null) primaryWeapon.OnUsePrimary(this);
+            }*/
         }
 
         public override void SubtractHealth(int delta)

@@ -8,7 +8,7 @@ namespace ProjectValkyrie.Entities.Attack
     {
         private int damage = 0;
 
-        public BasicAttack()
+        public BasicAttack(long id): base(id)
         {
             Type = EntityType.ZONE;
         }
@@ -17,8 +17,7 @@ namespace ProjectValkyrie.Entities.Attack
 
         public override void OnEvent(long id)
         {
-            GameEntity ge = GameSession.Instance.EntityManager.Get(id);
-            ge.SubtractHealth(damage);
+
         }
 
         public override void OnUpdate(GameTime t)
