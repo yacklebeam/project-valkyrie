@@ -69,6 +69,7 @@
     <Compile Include="Entities\FireTrap.cs" />
     <Compile Include="Entities\Goblin.cs" />
     <Compile Include="Entities\Hero.cs" />
+    <Compile Include="GameSession.cs" />
     <Compile Include="ProjectValkyrieGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

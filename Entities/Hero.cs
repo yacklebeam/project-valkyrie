@@ -24,15 +24,14 @@ namespace ProjectValkyrie.Entities
 
         public override void OnUpdate(GameTime t)
         {
-            /*if(invulnerableTime > 0.0f) invulnerableTime -= (float)t.ElapsedGameTime.TotalSeconds;
+            if(invulnerableTime > 0.0f) invulnerableTime -= (float)t.ElapsedGameTime.TotalSeconds;
             
             Vector2 leftStickNormalized = new Vector2(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X, GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y * -1.0f);
-            GameSession.Instance.PhysicsManager.Get(PhysicsId).Velocity = Speed * leftStickNormalized;
+            GameSession.Instance.PhysicsManager.Get(Id).Velocity = Speed * leftStickNormalized;
 
             if(GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
             {
-                PrimaryAttack();
-            }*/
+            }
         }
 
         public override void SubtractHealth(int delta)

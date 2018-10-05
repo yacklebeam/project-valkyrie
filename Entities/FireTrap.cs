@@ -25,11 +25,11 @@ namespace ProjectValkyrie.Entities
 
         public override void OnEvent(long id)
         {
-            //GameEntity ge = GameSession.Instance.EntityManager.Get(id);
-            /*if (active && ge.Type == EntityType.PLAYER)
+            GameEntity ge = GameSession.Instance.EntityManager.Get(id);
+            if (active && ge.Type == EntityType.PLAYER)
             {
                 ge.SubtractHealth(5);
-            }*/
+            }
         }
 
         public override void OnUpdate(GameTime t)
@@ -40,12 +40,12 @@ namespace ProjectValkyrie.Entities
                 active = !active;
                 if (active)
                 {
-                    //SetTexture("active-firetrap");
+                    GameSession.Instance.RenderManager.Get(Id).TextureName = "firetrap-active";
                     activeTime += 5.0f;
                 }
                 else
                 {
-                    //SetTexture("firetrap");
+                    GameSession.Instance.RenderManager.Get(Id).TextureName = "firetrap";
                     activeTime += 15.0f;
                 }
             }
