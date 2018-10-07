@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ValhallaEngine.Managers;
+using ValhallaEngine.Manager;
 
 namespace ProjectValkyrie.UI
 {

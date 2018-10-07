@@ -1,4 +1,4 @@
-﻿using ValhallaEngine.Managers;
+﻿using ValhallaEngine.Manager;
 
 namespace ProjectValkyrie
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ValhallaEngine.Entities;
+using ValhallaEngine.Entity;
 
 namespace ProjectValkyrie.Entities.Attack
 {
