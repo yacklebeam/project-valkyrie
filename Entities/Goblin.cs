@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ValhallaEngine.Components;
+using ValhallaEngine.Component;
 using ProjectValkyrie.Entities.Attack;
-using ValhallaEngine.Entities;
+using ValhallaEngine.Entity;
 using ValhallaEngine.Math;
 
 namespace ProjectValkyrie.Entities

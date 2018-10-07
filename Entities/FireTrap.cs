@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ValhallaEngine.Entities;
+using ValhallaEngine.Entity;
 
 namespace ProjectValkyrie.Entities
 {
@@ -33,21 +33,6 @@ namespace ProjectValkyrie.Entities
 
         public override void OnUpdate(GameTime t)
         {
-            activeTime -= (float)t.ElapsedGameTime.TotalSeconds;
-            if(activeTime < 0.0f)
-            {
-                active = !active;
-                if (active)
-                {
-                    GameSession.Instance.RenderManager.Get(Id).TextureName = "firetrap-active";
-                    activeTime += 5.0f;
-                }
-                else
-                {
-                    GameSession.Instance.RenderManager.Get(Id).TextureName = "firetrap";
-                    activeTime += 15.0f;
-                }
-            }
         }
     }
 }

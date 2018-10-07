@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using ValhallaEngine.Components;
+using ValhallaEngine.Component;
 using ProjectValkyrie.Entities;
 using ValhallaEngine.Math;
-using ValhallaEngine.Managers;
+using ValhallaEngine.Manager;
 using ProjectValkyrie.UI;
+using ValhallaEngine.Asset;
 
 namespace ProjectValkyrie
 {
@@ -47,6 +48,17 @@ namespace ProjectValkyrie
             _gs.AssetManager.loadImageAsset("firetrap", "images/FireTrap", Content);
             _gs.AssetManager.loadFontAsset("debug-font", "fonts/DebugFont", Content);
 
+            GameSprite heroSprite = new GameSprite();
+            heroSprite.Texture = _gs.AssetManager.getTexture("hero");
+            heroSprite.Offset = new Vector2(-10, -10);
+            _gs.AssetManager.AddGameSprite(0, heroSprite);
+
+            GameSprite wizardSprite = new GameSprite();
+            wizardSprite.Texture = _gs.AssetManager.getTexture("hero");
+            wizardSprite.Offset = new Vector2(-10, -10);
+            _gs.AssetManager.AddGameSprite(1, wizardSprite);
+
+
             DummyLoadLevel();
         }
 
@@ -68,7 +80,7 @@ namespace ProjectValkyrie
         {
             GraphicsDevice.Clear(Color.LightSlateGray);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null);
-            _gs.RenderManager.Render(spriteBatch, _gs.PhysicsManager, _gs.AssetManager); // Renders textures based on physical location and state value
+            _gs.RenderManager.Render(gameTime, spriteBatch, _gs.PhysicsManager, _gs.AssetManager); // Renders textures based on physical location and state value
             hud.Render(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
@@ -87,27 +99,11 @@ namespace ProjectValkyrie
             darkwizPc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 0.5f, 0.5f);
             _gs.PhysicsManager.Add(darkwizPc);
             RenderComponent darkwizRc = new RenderComponent(darkwiz.Id);
-            darkwizRc.TextureName = "hero";
-            darkwizRc.Offset = new Vector2(-10.0f, -10.0f);
+            darkwizRc.SpriteID = 1;
             _gs.RenderManager.Add(darkwizRc);
             _gs.EntityManager.Add(darkwiz);
 
             DummyLoadHero(new Vector2(25.0f, 25.0f));
-        }
-
-        private void DummyLoadGoblin(Vector2 pos)
-        {
-            Goblin gob = new Goblin(GameSession.NextID);
-            PhysicsComponent gobPc = new PhysicsComponent(gob.Id);
-            gobPc.Type = PhysicsComponent.PhysicsType.COLLIDE;
-            gobPc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 0.5f, 0.5f);
-            gobPc.Position = pos;
-            _gs.PhysicsManager.Add(gobPc);
-            RenderComponent gobRc = new RenderComponent(gob.Id);
-            gobRc.TextureName = "goblin";
-            gobRc.Offset = new Vector2(-10.0f, -10.0f);
-            _gs.RenderManager.Add(gobRc);
-            _gs.EntityManager.Add(gob);
         }
 
         private void DummyLoadHero(Vector2 pos)
@@ -122,30 +118,11 @@ namespace ProjectValkyrie
             _gs.PhysicsManager.Add(pc);
 
             RenderComponent rc = new RenderComponent(hero.Id);
-            rc.TextureName = "hero";
-            rc.Offset = new Vector2(-10.0f, -10.0f);
+            rc.SpriteID = 0;
             _gs.RenderManager.Add(rc);
 
             _gs.EntityManager.Add(hero);
             _gs.EntityManager.PlayerId = hero.Id;
-        }
-
-        private void DummyLoadFireTrap(Vector2 pos, bool active)
-        {
-            FireTrap szone = new FireTrap(GameSession.NextID, active);
-
-            PhysicsComponent spc = new PhysicsComponent(szone.Id);
-            spc.Type = PhysicsComponent.PhysicsType.INTERSECT;
-            spc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 1.5f, 1.5f);
-            spc.Position = pos;
-            _gs.PhysicsManager.Add(spc);
-
-            RenderComponent src = new RenderComponent(szone.Id);
-            src.TextureName = (active)?"active-firetrap": "firetrap";
-            src.Offset = new Vector2(-20.0f, -20.0f);
-            _gs.RenderManager.Add(src);
-
-            _gs.EntityManager.Add(szone);
         }
     }
 }

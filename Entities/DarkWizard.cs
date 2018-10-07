@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ValhallaEngine.Entities;
+using ValhallaEngine.Entity;
 
 namespace ProjectValkyrie.Entities
 {
@@ -9,9 +9,6 @@ namespace ProjectValkyrie.Entities
         public DarkWizard(long id) : base(id)
         {
             teleportcooldown = 5.0f;
-            
-
-
         }
 
         public override void OnEvent(long id)
