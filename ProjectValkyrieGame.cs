@@ -7,6 +7,7 @@ using ValhallaEngine.Math;
 using ValhallaEngine.Manager;
 using ProjectValkyrie.UI;
 using ValhallaEngine.Asset;
+using System.Collections.Generic;
 
 namespace ProjectValkyrie
 {
@@ -48,16 +49,10 @@ namespace ProjectValkyrie
             _gs.AssetManager.loadImageAsset("firetrap", "images/FireTrap", Content);
             _gs.AssetManager.loadFontAsset("debug-font", "fonts/DebugFont", Content);
 
-            GameSprite heroSprite = new GameSprite();
-            heroSprite.Texture = _gs.AssetManager.getTexture("hero");
-            heroSprite.Offset = new Vector2(-10, -10);
-            _gs.AssetManager.AddGameSprite(0, heroSprite);
 
-            GameSprite wizardSprite = new GameSprite();
-            wizardSprite.Texture = _gs.AssetManager.getTexture("hero");
-            wizardSprite.Offset = new Vector2(-10, -10);
-            _gs.AssetManager.AddGameSprite(1, wizardSprite);
-
+            _gs.AssetManager.CreateGameSprite(0, "hero", null, new Vector2(-10 - 10));
+            _gs.AssetManager.CreateGameSprite(1, "hero", null, new Vector2(-10 - 10));
+            _gs.AssetManager.CreateGameSprite(2, "goblin", null, new Vector2(-10 - 10));
 
             DummyLoadLevel();
         }
