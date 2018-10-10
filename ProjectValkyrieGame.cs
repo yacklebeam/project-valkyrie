@@ -88,7 +88,7 @@ namespace ProjectValkyrie
             // DummyLoadGoblin(new Vector2(50.0f, 30.0f));
             // DummyLoadGoblin(new Vector2(35.0f, 20.0f));
             DarkWizard darkwiz = new DarkWizard(GameSession.NextID);
-           PhysicsComponent darkwizPc = new PhysicsComponent(darkwiz.Id);
+            PhysicsComponent darkwizPc = new PhysicsComponent(darkwiz.Id);
             darkwizPc.Type = PhysicsComponent.PhysicsType.NONE;
             darkwizPc.Position = new Vector2(40.0f, 10.0f);
             darkwizPc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 0.5f, 0.5f);
@@ -97,6 +97,18 @@ namespace ProjectValkyrie
             darkwizRc.SpriteID = 1;
             _gs.RenderManager.Add(darkwizRc);
             _gs.EntityManager.Add(darkwiz);
+
+            SuperMissile test = new SuperMissile(GameSession.NextID);
+            PhysicsComponent testPc = new PhysicsComponent(test.Id);
+            testPc.Type = PhysicsComponent.PhysicsType.NONE;
+            testPc.Position = new Vector2(1.0f, 1.0f);
+            testPc.Velocity = new Vector2(5, 5);
+            testPc.Hitbox = MathUtils.GetRectangleHitbox(new Vector2(0, 1), 0.5f, 0.5f);
+            _gs.PhysicsManager.Add(testPc);
+            RenderComponent testRc = new RenderComponent(test.Id);
+            testRc.SpriteID = 2;
+            _gs.RenderManager.Add(testRc);
+            _gs.EntityManager.Add(test);
 
             DummyLoadHero(new Vector2(25.0f, 25.0f));
         }
